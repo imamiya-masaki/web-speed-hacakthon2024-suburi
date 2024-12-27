@@ -4,7 +4,7 @@
 #
 
 app = 'web-speed-hacakthon2024-suburi'
-primary_region = 'syd'
+primary_region = 'nrt'
 
 [build]
 
