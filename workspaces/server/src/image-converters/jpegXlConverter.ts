@@ -1,4 +1,4 @@
-import fs from 'node:fs/promises';
+import fs from 'fs/promises';
 
 const initializePromise = Promise.all([
   fs.readFile(require.resolve('@jsquash/jxl/codec/enc/jxl_enc.wasm')).then((wasmBinary) => {

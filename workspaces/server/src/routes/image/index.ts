@@ -1,6 +1,6 @@
 import { createReadStream } from 'node:fs';
 import type { ReadStream } from 'node:fs';
-import fs from 'node:fs/promises';
+import fs from 'fs/promises';
 import path from 'node:path';
 
 import { zValidator } from '@hono/zod-validator';

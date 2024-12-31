@@ -1,4 +1,4 @@
-import fs from 'node:fs/promises';
+import fs from 'fs/promises';
 import { createRequire } from 'node:module';
 
 import decode, { init as jsquashInit } from '@jsquash/jxl/decode.js';

@@ -1,4 +1,4 @@
-import fs from 'node:fs/promises';
+import fs from 'fs/promises';
 
 import { DATABASE_PATH, DATABASE_SEED_PATH } from '../constants/paths';
 

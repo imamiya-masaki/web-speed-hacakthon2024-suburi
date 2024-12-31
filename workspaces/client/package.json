@@ -2,7 +2,8 @@
   "name": "@wsh-2024/client",
   "private": true,
   "scripts": {
-    "build": "pnpm run build:clean && pnpm run build:tsup && pnpm run build:copy",
+    "build": "NODE_ENV=production && pnpm run build:clean && pnpm run build:tsup && pnpm run build:copy",
+    "build:dev": "pnpm run build:clean && pnpm run build:tsup && pnpm run build:copy",
     "build:clean": "rm -rf ./dist",
     "build:copy": "cp -r ./assets ./dist/assets",
     "build:tsup": "tsup"
