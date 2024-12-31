@@ -14,7 +14,7 @@ import { registerServiceWorker } from './utils/registerServiceWorker';
 const main = async () => {
   await registerServiceWorker();
   await preloadImages();
-
+  
   $(document).ready(() => {
     if (window.location.pathname.startsWith('/admin')) {
       ReactDOM.createRoot($('#root').get(0)!).render(<AdminApp />);

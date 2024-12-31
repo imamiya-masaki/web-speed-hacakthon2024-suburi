@@ -8,11 +8,6 @@ import { UserActionObserver } from './logger';
 
 export const ClientApp: React.FC = () => {
 
-  useEffect(() => {
-    const logger = new UserActionObserver("https://user-action-database.fly.dev/observe")
-    logger.observe()
-  },[])
-   
   return (
     <>
       <GlobalStyle />

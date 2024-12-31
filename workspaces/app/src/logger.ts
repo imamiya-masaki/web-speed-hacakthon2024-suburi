@@ -15,7 +15,7 @@ function assertHTMLElement(value: any): asserts value is HTMLElement {
 }
 function isMobile(navigator: Navigator) {
   // iPhone, iPad, iPod, Android, Windows Phone 等の文字列が含まれるかチェック
-  return /iPhone|iPad|iPod|Android|windows phone/i.test(window.navigator.userAgent);
+  return /iPhone|iPad|iPod|Android|windows phone/i.test(navigator.userAgent);
 }
 
 
@@ -45,11 +45,7 @@ export class UserActionObserver {
       scrollY,
       scrollX,
       targetSelector: element ? getSelector(element): "null"};
-
-    fetch(this.targetURL, {
-      method: "POST",
-      body: JSON.stringify(loggerBody)
-    })
+    console.log('performance', loggerBody)
   }
   observe() {
     this.logger("start")
