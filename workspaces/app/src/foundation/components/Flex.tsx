@@ -1,37 +1,73 @@
 import type * as CSS from 'csstype';
-import styled from 'styled-components';
 
 import { addUnitIfNeeded } from '../../lib/css/addUnitIfNeeded';
+import { CSSProperties, ReactNode } from 'react';
 
-const _Flex = styled.div<{
-  $align?: string;
-  $direction?: string;
-  $flexGrow?: CSS.Property.FlexGrow;
-  $flexShrink?: CSS.Property.FlexShrink;
+/**
+ * _Flex コンポーネントは、柔軟なレイアウトを提供する div ラッパーです。
+ * スタイルプロパティはすべてインラインスタイルとして適用されます。
+ */
+interface FlexProps {
+  $align?: CSSProperties['alignItems'];
+  $direction?: CSSProperties['flexDirection'];
+  $flexGrow?: CSSProperties['flexGrow'];
+  $flexShrink?: CSSProperties['flexShrink'];
   $gap?: number;
-  $justify?: string;
+  $justify?: CSSProperties['justifyContent'];
   $p?: number;
   $pb?: number;
   $pl?: number;
-  $position?: string;
+  $position?: CSSProperties['position'];
   $pr?: number;
   $pt?: number;
   $px?: number;
   $py?: number;
-}>`
-  align-items: ${({ $align }) => $align};
-  display: flex;
-  flex-direction: ${({ $direction }) => $direction};
-  flex-grow: ${({ $flexGrow }) => $flexGrow};
-  flex-shrink: ${({ $flexShrink }) => $flexShrink};
-  gap: ${({ $gap = 0 }) => $gap}px;
-  justify-content: ${({ $justify }) => $justify};
-  padding-bottom: ${({ $pb, $py }) => addUnitIfNeeded($py ?? $pb)};
-  padding-left: ${({ $pl, $px }) => addUnitIfNeeded($px ?? $pl)};
-  padding-right: ${({ $pr, $px }) => addUnitIfNeeded($px ?? $pr)};
-  padding-top: ${({ $pt, $py }) => addUnitIfNeeded($py ?? $pt)};
-  padding: ${({ $p }) => addUnitIfNeeded($p)};
-`;
+  children: ReactNode;
+  style?: CSSProperties;
+  as?: keyof JSX.IntrinsicElements;
+}
+
+const _Flex: React.FC<FlexProps> = ({
+  $align,
+  $direction,
+  $flexGrow,
+  $flexShrink,
+  $gap = 0,
+  $justify,
+  $p,
+  $pb,
+  $pl,
+  $position,
+  $pr,
+  $pt,
+  $px,
+  $py,
+  children,
+  style,
+  as
+}) => {
+  
+  const flexStyle: CSSProperties = {
+    display: 'flex',
+    alignItems: $align,
+    flexDirection: $direction,
+    flexGrow: $flexGrow,
+    flexShrink: $flexShrink,
+    gap: addUnitIfNeeded($gap),
+    justifyContent: $justify,
+    position: $position,
+    padding: addUnitIfNeeded($p),
+    paddingTop: addUnitIfNeeded($pt ?? $py),
+    paddingBottom: addUnitIfNeeded($pb ?? $py),
+    paddingLeft: addUnitIfNeeded($pl ?? $px),
+    paddingRight: addUnitIfNeeded($pr ?? $px),
+    ...style, // 外部からのスタイルを上書き可能にする
+  };
+
+  const Component = as || 'div';
+
+  return <Component style={flexStyle}>{children}</Component>;
+};
 
 type Props = {
   align: CSS.Property.AlignItems;

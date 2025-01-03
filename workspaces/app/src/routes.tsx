@@ -1,7 +1,5 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { styled } from 'styled-components';
-
 import { Link } from './foundation/components/Link';
 import { Text } from './foundation/components/Text';
 import { ActionLayout } from './foundation/layouts/ActionLayout';
@@ -14,14 +12,27 @@ import { SearchPage } from './pages/SearchPage';
 import { TopPage } from './pages/TopPage';
 import { ArrowBack } from '@mui/icons-material';
 
-const _BackToTopButton = styled(Link)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: ${Space * 1}px;
-  border: none;
-  background-color: transparent;
-`;
+type LinkProps = Parameters<typeof Link>[0];
+
+// インラインスタイルの定義
+const backToTopButtonStyle: React.CSSProperties = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: `${Space * 1}px`,
+  border: 'none',
+  backgroundColor: 'transparent',
+};
+
+// _BackToTopButton コンポーネントの定義
+const _BackToTopButton: React.FC<LinkProps> = ({ style, ...props }) => {
+  const combinedStyle: React.CSSProperties = {
+    ...backToTopButtonStyle,
+    ...style, // 外部からのスタイルを上書き可能にする
+  };
+
+  return <Link {...props} style={combinedStyle} />;
+};
 
 export const Router: React.FC = () => {
   return (

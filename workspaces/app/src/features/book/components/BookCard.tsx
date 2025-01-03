@@ -8,7 +8,7 @@ import { Text } from '../../../foundation/components/Text';
 import { useImage } from '../../../foundation/hooks/useImage';
 import { Color, Radius, Space, Typography } from '../../../foundation/styles/variables';
 import { useBook } from '../hooks/useBook';
-
+import "./bookcard.css"
 const _Wrapper = styled(Link)`
   display: flex;
   flex-direction: column;
@@ -43,7 +43,7 @@ const BookCard: React.FC<Props> = ({ bookId }) => {
   const authorImageUrl = useImage({ height: 32, imageId: book.author.image.id, width: 32 });
 
   return (
-    <_Wrapper href={`/books/${bookId}`}>
+    <Link href={`/books/${bookId}`} className='bookcard-wrapper'>
       {imageUrl != null && (
         <_ImgWrapper>
           <Image alt={book.image.alt} height={128} objectFit="cover" src={imageUrl} width={192} />
@@ -66,7 +66,7 @@ const BookCard: React.FC<Props> = ({ bookId }) => {
           </Text>
         </Flex>
       </Flex>
-    </_Wrapper>
+    </Link>
   );
 };
 

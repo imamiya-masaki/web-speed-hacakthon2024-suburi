@@ -2,6 +2,7 @@
   "name": "@wsh-2024/client",
   "private": true,
   "scripts": {
+    "prepare": "panda codegen",
     "build": "NODE_ENV=production && pnpm run build:clean && NODE_ENV=production pnpm run build:tsup && pnpm run build:copy",
     "analyze": "NODE_ENV=production && NODE_ENV=production pnpm run build:tsup --metafile",
     "build:dev": "pnpm run build:clean && pnpm run build:tsup && pnpm run build:copy",
@@ -11,11 +12,15 @@
   },
   "dependencies": {
     "@jsquash/jxl": "1.1.0",
+    "@linaria/core": "6.2.0",
+    "@linaria/react": "6.2.1",
     "@newrelic/browser-agent": "1.277.0",
+    "@pandacss/dev": "0.51.1",
     "@sentry/react": "8.47.0",
     "@webcomponents/webcomponentsjs": "2.8.0",
     "@wsh-2024/admin": "workspace:*",
     "@wsh-2024/app": "workspace:*",
+    "@wyw-in-js/babel-preset": "0.5.5",
     "core-js": "3.36.0",
     "es5-shim": "4.6.7",
     "es6-shim": "0.35.8",
@@ -30,6 +35,7 @@
     "react-dom": "18.2.0",
     "react-router-dom": "6.18.0",
     "regenerator-runtime": "0.14.1",
+    "styled-vanilla-extract": "1.0.0",
     "swr": "2.2.4",
     "unorm": "1.6.0"
   },
@@ -42,6 +48,8 @@
     "@types/react": "18.2.0",
     "@types/react-dom": "18.2.1",
     "@types/serviceworker": "0.0.83",
+    "@vanilla-extract/esbuild-plugin": "2.3.13",
+    "@wyw-in-js/esbuild": "0.5.5",
     "esbuild-plugin-polyfill-node": "0.3.0",
     "pkg-dir": "5.0.0",
     "tsup": "8.0.1"
