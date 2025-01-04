@@ -1,6 +1,6 @@
 import { Suspense, useEffect, useState } from 'react';
 import { useInterval, useUpdate } from 'react-use';
-import styled from 'styled-components';
+import './ComicViewerCore.module.css';
 
 import { addUnitIfNeeded } from '../../../lib/css/addUnitIfNeeded';
 import { useEpisode } from '../../episode/hooks/useEpisode';
@@ -67,32 +67,6 @@ function getScrollToLeft({
   return scrollToLeft;
 }
 
-const _Container = styled.div`
-  position: relative;
-`;
-
-const _Wrapper = styled.div<{
-  $paddingInline: number;
-  $pageWidth: number;
-}>`
-  background-color: black;
-  cursor: grab;
-  direction: rtl;
-  display: grid;
-  grid-auto-columns: ${({ $pageWidth }) => addUnitIfNeeded($pageWidth)};
-  grid-auto-flow: column;
-  grid-template-rows: minmax(auto, 100%);
-  height: 100%;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  overscroll-behavior: none;
-  padding-inline: ${({ $paddingInline }) => addUnitIfNeeded($paddingInline)};
-  touch-action: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
 
 type Props = {
   episodeId: string;
@@ -208,13 +182,13 @@ const ComicViewerCore: React.FC<Props> = ({ episodeId }) => {
   }, [pageCountParView, pageWidth, scrollView]);
 
   return (
-    <_Container ref={containerRef}>
-      <_Wrapper ref={scrollViewRef} $paddingInline={viewerPaddingInline} $pageWidth={pageWidth}>
+    <div className='ComicViewerCore___Container__styled' ref={containerRef}>
+      <div ref={scrollViewRef} className='ComicViewerCore___Wrapper__styled' style={{paddingInline: addUnitIfNeeded(viewerPaddingInline), gridAutoColumns: addUnitIfNeeded(pageWidth)}} >
         {episode.pages.map((page) => {
           return <ComicViewerPage key={page.id} pageImageId={page.image.id} />;
         })}
-      </_Wrapper>
-    </_Container>
+      </div>
+    </div>
   );
 };
 

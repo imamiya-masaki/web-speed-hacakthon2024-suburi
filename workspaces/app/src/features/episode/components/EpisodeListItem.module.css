@@ -1,0 +1,21 @@
+.EpisodeListItem___Wrapper__styled {
+
+  width: 100%;
+
+}
+
+.EpisodeListItem___Link__styled {
+
+  width: 100%;
+
+}
+
+.EpisodeListItem___ImgWrapper__styled {
+
+  width: 96px;
+  height: 96px;
+  > img {
+    border-radius: 8px;
+  }
+
+}

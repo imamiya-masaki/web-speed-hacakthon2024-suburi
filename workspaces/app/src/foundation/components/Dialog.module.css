@@ -1,0 +1,44 @@
+.Dialog___Overlay__styled {
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+
+}
+
+.Dialog___Wrapper__styled {
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 64px);
+  max-width: 480px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+
+}
+
+.Dialog___Container__styled {
+
+  padding:16px;
+  border-radius: 4px;
+  background-color: #FFFFFF;
+  height: 540px;
+  overflow: scroll;
+
+}
+
+.Dialog___CloseButton__styled {
+
+  border-radius: 50%;
+  height: 32px;
+  width: 32px;
+  position: absolute;
+  top: -40/px;
+  left: -8px;
+
+}

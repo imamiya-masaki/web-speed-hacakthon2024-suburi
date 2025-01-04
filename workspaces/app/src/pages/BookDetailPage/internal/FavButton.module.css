@@ -1,0 +1,16 @@
+.FavButton___Button__styled {
+
+  border-radius: 50%;
+  background-color: /* ${({
+  $outlined
+}) => $outlined ? `${Color.MONO_0}` : `${Color.SubFavorite}`} */;
+  border: none;
+  padding: 8px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+}

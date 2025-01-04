@@ -1,18 +1,9 @@
-import type * as CSS from 'csstype';
-import styled from 'styled-components';
+// Image.tsx
 
+import React from 'react';
+import type * as CSS from 'csstype';
 import { addUnitIfNeeded } from '../../lib/css/addUnitIfNeeded';
 
-const _Image = styled.img<{
-  $height: number | string;
-  $objectFit: string;
-  $width: number | string;
-}>`
-  object-fit: ${({ $objectFit }) => $objectFit};
-  width: ${({ $width }) => addUnitIfNeeded($width)};
-  height: ${({ $height }) => addUnitIfNeeded($height)};
-  display: block;
-`;
 
 type Props = {
   height: number | string;
@@ -20,6 +11,26 @@ type Props = {
   width: number | string;
 } & JSX.IntrinsicElements['img'];
 
-export const Image: React.FC<Props> = ({ height, loading = 'eager', objectFit, width, ...rest }) => {
-  return <_Image {...rest} $height={height} $objectFit={objectFit} $width={width} loading={loading} />;
+export const Image: React.FC<Props> = ({
+  height,
+  objectFit,
+  width,
+  loading = 'eager',
+  ...rest
+}) => {
+  // スタイルオブジェクトの構築
+  const style: React.CSSProperties = {
+    objectFit,
+    width: addUnitIfNeeded(width),
+    height: addUnitIfNeeded(height),
+    display: 'block',
+  };
+
+  return (
+    <img
+      style={style}
+      loading={loading}
+      {...rest}
+    />
+  );
 };

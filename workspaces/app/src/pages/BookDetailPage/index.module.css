@@ -1,0 +1,29 @@
+.index___HeadingWrapper__styled {
+
+  display: grid;
+  align-items: start;
+  grid-template-columns: auto 1fr;
+  padding-bottom:16px;
+  gap:16px;
+
+}
+
+.index___AuthorWrapper__styled {
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  gap: 8px;
+
+}
+
+.index___AvatarWrapper__styled {
+
+  width: 32px;
+  height: 32px;
+  > img {
+    border-radius: 50%;
+  }
+
+}

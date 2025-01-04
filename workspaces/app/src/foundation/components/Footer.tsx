@@ -1,6 +1,7 @@
+import './Footer.module.css'
+
 import { useSetAtom } from 'jotai';
 import React, { useId } from 'react';
-import styled from 'styled-components';
 
 import { DialogContentAtom } from '../atoms/DialogContentAtom';
 import { COMPANY } from '../constants/Company';
@@ -15,14 +16,6 @@ import { Button } from './Button';
 import { Flex } from './Flex';
 import { Spacer } from './Spacer';
 import { Text } from './Text';
-
-const _Button = styled(Button)`
-  color: ${Color.MONO_A};
-`;
-
-const _Content = styled.section`
-  white-space: pre-line;
-`;
 
 export const Footer: React.FC = () => {
   const [isClient, setIsClient] = React.useState(false);
@@ -41,7 +34,7 @@ export const Footer: React.FC = () => {
 
   const handleRequestToTermDialogOpen = () => {
     updateDialogContent(
-      <_Content aria-labelledby={termDialogA11yId} role="dialog">
+      <section className='Footer___Content__styled' aria-labelledby={termDialogA11yId} role="dialog">
         <Text as="h2" color={Color.MONO_100} id={termDialogA11yId} typography={Typography.NORMAL16}>
           利用規約
         </Text>
@@ -49,13 +42,13 @@ export const Footer: React.FC = () => {
         <Text as="p" color={Color.MONO_100} typography={Typography.NORMAL12}>
           {TERM}
         </Text>
-      </_Content>,
+      </section>,
     );
   };
 
   const handleRequestToContactDialogOpen = () => {
     updateDialogContent(
-      <_Content aria-labelledby={contactDialogA11yId} role="dialog">
+      <section className='Footer___Content__styled' aria-labelledby={contactDialogA11yId} role="dialog">
         <Text as="h2" color={Color.MONO_100} id={contactDialogA11yId} typography={Typography.NORMAL16}>
           お問い合わせ
         </Text>
@@ -63,13 +56,13 @@ export const Footer: React.FC = () => {
         <Text as="p" color={Color.MONO_100} typography={Typography.NORMAL12}>
           {CONTACT}
         </Text>
-      </_Content>,
+      </section>,
     );
   };
 
   const handleRequestToQuestionDialogOpen = () => {
     updateDialogContent(
-      <_Content aria-labelledby={questionDialogA11yId} role="dialog">
+      <section className='Footer___Content__styled' aria-labelledby={questionDialogA11yId} role="dialog">
         <Text as="h2" color={Color.MONO_100} id={questionDialogA11yId} typography={Typography.NORMAL16}>
           Q&A
         </Text>
@@ -77,13 +70,13 @@ export const Footer: React.FC = () => {
         <Text as="p" color={Color.MONO_100} typography={Typography.NORMAL12}>
           {QUESTION}
         </Text>
-      </_Content>,
+      </section>,
     );
   };
 
   const handleRequestToCompanyDialogOpen = () => {
     updateDialogContent(
-      <_Content aria-labelledby={companyDialogA11yId} role="dialog">
+      <section className='Footer___Content__styled' aria-labelledby={companyDialogA11yId} role="dialog">
         <Text as="h2" color={Color.MONO_100} id={companyDialogA11yId} typography={Typography.NORMAL16}>
           運営会社
         </Text>
@@ -91,13 +84,13 @@ export const Footer: React.FC = () => {
         <Text as="p" color={Color.MONO_100} typography={Typography.NORMAL12}>
           {COMPANY}
         </Text>
-      </_Content>,
+      </section>,
     );
   };
 
   const handleRequestToOverviewDialogOpen = () => {
     updateDialogContent(
-      <_Content aria-labelledby={overviewDialogA11yId} role="dialog">
+      <section className='Footer___Content__styled' aria-labelledby={overviewDialogA11yId} role="dialog">
         <Text as="h2" color={Color.MONO_100} id={overviewDialogA11yId} typography={Typography.NORMAL16}>
           Cyber TOONとは
         </Text>
@@ -105,7 +98,7 @@ export const Footer: React.FC = () => {
         <Text as="p" color={Color.MONO_100} typography={Typography.NORMAL12}>
           {OVERVIEW}
         </Text>
-      </_Content>,
+      </section>,
     );
   };
 
@@ -114,21 +107,21 @@ export const Footer: React.FC = () => {
       <Flex align="flex-start" direction="column" gap={Space * 1} justify="flex-start">
         <img alt="Cyber TOON" src="/assets/cyber-toon.svg" />
         <Flex align="start" direction="row" gap={Space * 1.5} justify="center">
-          <_Button disabled={!isClient} onClick={handleRequestToTermDialogOpen}>
+          <Button className='Footer___Button__styled' disabled={!isClient} onClick={handleRequestToTermDialogOpen}>
             利用規約
-          </_Button>
-          <_Button disabled={!isClient} onClick={handleRequestToContactDialogOpen}>
+          </Button>
+          <Button className='Footer___Button__styled' disabled={!isClient} onClick={handleRequestToContactDialogOpen}>
             お問い合わせ
-          </_Button>
-          <_Button disabled={!isClient} onClick={handleRequestToQuestionDialogOpen}>
+          </Button>
+          <Button className='Footer___Button__styled' disabled={!isClient} onClick={handleRequestToQuestionDialogOpen}>
             Q&A
-          </_Button>
-          <_Button disabled={!isClient} onClick={handleRequestToCompanyDialogOpen}>
+          </Button>
+          <Button className='Footer___Button__styled' disabled={!isClient} onClick={handleRequestToCompanyDialogOpen}>
             運営会社
-          </_Button>
-          <_Button disabled={!isClient} onClick={handleRequestToOverviewDialogOpen}>
+          </Button>
+          <Button className='Footer___Button__styled' disabled={!isClient} onClick={handleRequestToOverviewDialogOpen}>
             Cyber TOONとは
-          </_Button>
+          </Button>
         </Flex>
       </Flex>
     </Box>

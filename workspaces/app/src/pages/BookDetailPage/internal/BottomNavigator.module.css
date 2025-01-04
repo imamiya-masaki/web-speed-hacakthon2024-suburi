@@ -1,0 +1,33 @@
+.BottomNavigator___Wrapper__styled {
+
+  position: fixed;
+  bottom: 32/px;
+  left: 50%;
+  transform: translateX(-50%);
+
+}
+
+.BottomNavigator___Content__styled {
+
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  min-width: 296px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  padding: 8px;
+  border-radius: calc(24px + 8px);
+  background-color: #FFFFFF;
+
+}
+
+.BottomNavigator___ReadLink__styled {
+
+  display: block;
+  border-radius: 24px;
+  background-color: #FADB5F;
+  padding:16px 64px;
+  font-weight: bold;
+  color: #202020;
+  flex-shrink: 0;
+
+}

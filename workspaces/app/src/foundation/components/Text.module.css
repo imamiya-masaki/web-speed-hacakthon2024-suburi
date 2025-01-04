@@ -1,0 +1,19 @@
+.Text___Text__styled {
+
+  /* ${({
+  $typography
+}) => $typography} */;
+  color: /* ${({
+  $color
+}) => $color} */;
+  flex-grow: /* ${({
+  $flexGrow
+}) => $flexGrow} */;
+  flex-shrink: /* ${({
+  $flexShrink
+}) => $flexShrink} */;
+  font-weight: /* ${({
+  $weight
+}) => $weight} */;
+
+}

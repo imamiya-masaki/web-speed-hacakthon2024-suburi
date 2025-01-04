@@ -1,0 +1,21 @@
+.BookListItem___Wrapper__styled {
+
+  width: 100%;
+
+}
+
+.BookListItem___Link__styled {
+
+  width: 100%;
+
+}
+
+.BookListItem___ImgWrapper__styled {
+
+  width: 64px;
+  height: 64px;
+  > img {
+    border-radius: 8px;
+  }
+
+}
