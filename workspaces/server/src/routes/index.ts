@@ -13,7 +13,6 @@ import { ssrApp } from './ssr';
 import { staticApp } from './static';
 
 const app = new Hono();
-
 app.use(secureHeaders());
 app.use(
   cors({

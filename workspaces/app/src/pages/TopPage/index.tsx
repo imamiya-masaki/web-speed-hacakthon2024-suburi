@@ -1,3 +1,5 @@
+import './index.css'
+
 import _ from 'lodash';
 import moment from 'moment-timezone';
 import { Suspense, useId } from 'react';
@@ -30,11 +32,8 @@ const TopPage: React.FC = () => {
   return (
     <Flex align="flex-start" direction="column" gap={Space * 2} justify="center" pb={Space * 2}>
       <Box as="header" maxWidth="100%" width="100%">
-        <Suspense fallback={null}>
         <CoverSection />
-        </Suspense >
       </Box>
-      <Suspense fallback={null}>
       <Box as="main" maxWidth="100%" width="100%">
         <Box aria-labelledby={pickupA11yId} as="section" maxWidth="100%" mt={16} width="100%">
           <Text as="h2" color={Color.MONO_100} id={pickupA11yId} typography={Typography.NORMAL20} weight="bold">
@@ -42,11 +41,13 @@ const TopPage: React.FC = () => {
           </Text>
           <Spacer height={Space * 2} />
           <Box maxWidth="100%" overflowX="scroll" overflowY="hidden">
-            <Flex align="stretch" direction="row" gap={Space * 2} justify="flex-start">
-              {_.map(featureList, (feature) => (
-                <FeatureCard key={feature.id} bookId={feature.book.id} />
-              ))}
-            </Flex>
+            <Suspense fallback={<>loading...</>}>
+              <Flex align="stretch" direction="row" gap={Space * 2} justify="flex-start" className='toppage-pickup'>
+                {_.map(featureList, (feature) => (
+                  <FeatureCard key={feature.id} bookId={feature.book.id} insertBook={feature.book}/>
+                ))}
+              </Flex>
+            </Suspense>
           </Box>
         </Box>
 
@@ -58,40 +59,38 @@ const TopPage: React.FC = () => {
           </Text>
           <Spacer height={Space * 2} />
           <Box maxWidth="100%" overflowX="hidden" overflowY="hidden">
-            <Flex align="center" as="ul" direction="column" justify="center">
-              {_.map(rankingList, (ranking) => (
-                <RankingCard key={ranking.id} bookId={ranking.book.id} />
-              ))}
-            </Flex>
+              <Flex align="center" as="ul" direction="column" justify="center">
+                {_.map(rankingList, (ranking) => (
+                  <RankingCard key={ranking.id} bookId={ranking.book.id} insertBook={ranking.book}/>
+                ))}
+              </Flex>
           </Box>
         </Box>
 
         <Spacer height={Space * 2} />
-
-        <Box aria-labelledby={todayA11yId} as="section" maxWidth="100%" width="100%">
-          <Text as="h2" color={Color.MONO_100} id={todayA11yId} typography={Typography.NORMAL20} weight="bold">
-            本日更新
-          </Text>
-          <Spacer height={Space * 2} />
-          <Box maxWidth="100%" overflowX="scroll" overflowY="hidden">
-            <Flex align="stretch" gap={Space * 2} justify="flex-start">
-              {_.map(release.books, (book) => (
-                <BookCard key={book.id} bookId={book.id} />
-              ))}
-            </Flex>
+          <Box aria-labelledby={todayA11yId} as="section" maxWidth="100%" width="100%">
+            <Text as="h2" color={Color.MONO_100} id={todayA11yId} typography={Typography.NORMAL20} weight="bold">
+              本日更新
+            </Text>
+            <Spacer height={Space * 2} />
+            <Box maxWidth="100%" overflowX="scroll" overflowY="hidden">
+            <Suspense fallback={<></>}>
+              <Flex align="stretch" gap={Space * 2} justify="flex-start" className='toppage-release'>
+                {_.map(release.books, (book) => (
+                  <BookCard key={book.id} bookId={book.id} insertBook={book}/>
+                ))}
+              </Flex>
+            </Suspense>
+            </Box>
           </Box>
-        </Box>
       </Box>
-      </Suspense>
     </Flex>
   );
 };
 
 const TopPageWithSuspense: React.FC = () => {
   return (
-     <Suspense fallback={null}>
-    <TopPage />
-    </Suspense>
+      <TopPage />
   );
 };
 

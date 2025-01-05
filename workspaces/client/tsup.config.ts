@@ -7,8 +7,6 @@ import findPackageDir from 'pkg-dir';
 import { defineConfig } from 'tsup';
 import type { Options } from 'tsup';
 
-import {vanillaExtractPlugin} from '@vanilla-extract/esbuild-plugin'
-
 export default defineConfig(async (): Promise<Options[]> => {
   const PACKAGE_DIR = (await findPackageDir(process.cwd()))!;
   const WORKSPACE_DIR = (await findWorkspaceDir(process.cwd()))!;
@@ -39,11 +37,7 @@ export default defineConfig(async (): Promise<Options[]> => {
         options.publicPath = '/';
       },
       esbuildPlugins: [
-        vanillaExtractPlugin(),
         polyfillNode({
-          globals: {
-            process: false,
-          },
           polyfills: {
             events: true,
             fs: true,

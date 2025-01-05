@@ -8,15 +8,15 @@ export const HeroImage: React.FC = () => {
         <source
           media="(max-width: 512px)"
           srcSet="
-            assets/heroimage-1-512.png 1x,
-            assets/heroimage-2-512.png 2x
+            assets/heroimage-1-512.webp 1x,
+            assets/heroimage-2-512.webp 2x
           "
         />
         <img
-          src="assets/heroimage-2-1024.png"
+          src="assets/heroimage-2-1024.webp"
           srcSet="
-            assets/heroimage-1-1024.pngg 1x,
-            assets/heroimage-2-1024.png 2x
+            assets/heroimage-1-1024.webp 1x,
+            assets/heroimage-2-1024.webp 2x
           "
           alt="Cyber TOON"
           className="hero-image"

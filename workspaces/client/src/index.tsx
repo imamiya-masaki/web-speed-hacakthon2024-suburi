@@ -11,7 +11,7 @@ import { registerServiceWorker } from './utils/registerServiceWorker';
 const main = async () => {
   try {
     await registerServiceWorker();
-    await preloadImages();
+    // await preloadImages();
 
       const rootElement = document.getElementById('root');
       if (!rootElement) {

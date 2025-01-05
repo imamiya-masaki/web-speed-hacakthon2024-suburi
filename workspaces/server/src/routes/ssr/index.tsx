@@ -20,22 +20,25 @@ const app = new Hono();
 
 async function createInjectDataStr(): Promise<Record<string, unknown>> {
   const json: Record<string, unknown> = {};
-
+  console.log('releases:start', performance.now())
   {
     const dayOfWeek = getDayOfWeekStr(moment());
     const releases = await releaseApiClient.fetch({ params: { dayOfWeek } });
     json[unstable_serialize(releaseApiClient.fetch$$key({ params: { dayOfWeek } }))] = releases;
   }
-
+  console.log('releases:end', performance.now())
+  console.log('feature:start', performance.now())
   {
     const features = await featureApiClient.fetchList({ query: {} });
     json[unstable_serialize(featureApiClient.fetchList$$key({ query: {} }))] = features;
   }
-
+  console.log('feature:end', performance.now())
+  console.log('ranking:start', performance.now())
   {
     const ranking = await rankingApiClient.fetchList({ query: {} });
     json[unstable_serialize(rankingApiClient.fetchList$$key({ query: {} }))] = ranking;
   }
+  console.log('ranking:end', performance.now())
 
   return json;
 }
@@ -62,14 +65,15 @@ const createHeaderHTML = async({
         })}
       </script>`,
     );
-    console.log('content:end')
   return content;
 }
 
 app.get('*', async (c) => {
+  console.log('SSR')
+  console.log('start', performance.now())
   const injectData = await createInjectDataStr();
   const header = await createHeaderHTML({injectData})
-  console.log({header})
+  console.log('mergin', performance.now())
   try {
     const stream = await renderToReadableStream(
       <html >
@@ -84,6 +88,7 @@ app.get('*', async (c) => {
         </html>,
     );
 
+    console.log('end', performance.now())
     return new Response(stream, {
       headers: { 'content-type': 'text/html' },
     });

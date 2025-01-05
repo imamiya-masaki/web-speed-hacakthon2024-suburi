@@ -27,7 +27,6 @@
     "es7-shim": "6.0.0",
     "fzstd": "0.1.0",
     "jimp": "0.22.12",
-    "jquery": "3.7.1",
     "newrelic": "12.9.0",
     "p-queue": "8.0.1",
     "path-browserify": "1.0.1",

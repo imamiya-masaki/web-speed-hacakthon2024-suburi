@@ -25,6 +25,7 @@ interface FlexProps {
   children: ReactNode;
   style?: CSSProperties;
   as?: keyof JSX.IntrinsicElements;
+  className?: string;
 }
 
 const _Flex: React.FC<FlexProps> = ({
@@ -44,7 +45,8 @@ const _Flex: React.FC<FlexProps> = ({
   $py,
   children,
   style,
-  as
+  as,
+  className,
 }) => {
   
   const flexStyle = {
@@ -73,7 +75,7 @@ const _Flex: React.FC<FlexProps> = ({
 
   const Component = as || 'div';
 
-  return <Component style={setStyle}>{children}</Component>;
+  return <Component className={className} style={setStyle}>{children}</Component>;
 };
 
 type Props = {
@@ -93,6 +95,7 @@ type Props = {
   pt?: number;
   px?: number;
   py?: number;
+  className?: string;
 };
 
 export const Flex: React.FC<Props> = ({
@@ -112,6 +115,7 @@ export const Flex: React.FC<Props> = ({
   pt,
   px,
   py,
+  className
 }) => {
   return (
     <_Flex
@@ -130,6 +134,7 @@ export const Flex: React.FC<Props> = ({
       $px={px}
       $py={py}
       as={as}
+      className={className}
     >
       {children}
     </_Flex>

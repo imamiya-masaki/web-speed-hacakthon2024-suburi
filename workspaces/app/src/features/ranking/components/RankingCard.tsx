@@ -12,13 +12,15 @@ import { useImage } from '../../../foundation/hooks/useImage';
 import { Color, Space, Typography } from '../../../foundation/styles/variables';
 import { useBook } from '../../book/hooks/useBook';
 import { NavigateNext } from '@mui/icons-material';
+import { Book } from '../../../lib/type';
 
 type Props = {
   bookId: string;
+  insertBook: Omit<Book,"nameRuby" | "episodes">;
 };
 
-const RankingCard: React.FC<Props> = ({ bookId }) => {
-  const { data: book } = useBook({ params: { bookId } });
+const RankingCard: React.FC<Props> = ({ bookId, insertBook }) => {
+  const book = insertBook ??  useBook({ params: { bookId } }).data;
 
   const imageUrl = useImage({ height: 96, imageId: book.image.id, width: 96 });
   const authorImageUrl = useImage({ height: 32, imageId: book.author.image.id, width: 32 });
