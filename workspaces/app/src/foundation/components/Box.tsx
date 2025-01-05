@@ -113,11 +113,11 @@ export const Box: React.FC<Props> = ({
 
   const setStyle: Record<string, string> = {}
   for (const [key, value] of Object.entries(style)) {
-    if (value) {
+    if (value !== undefined) {
       setStyle[key] = value;
     }
   }
-  
+
   return React.createElement(as, {
     style: setStyle,
     'aria-label': ariaLabel,

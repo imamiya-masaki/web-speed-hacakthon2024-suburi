@@ -28,7 +28,7 @@ export const Image: React.FC<Props> = ({
 
   const setStyle: Record<string, unknown> = {}
   for (const [key, value] of Object.entries(style)) {
-    if (value) {
+    if (value !== undefined) {
       setStyle[key] = value;
     }
   }

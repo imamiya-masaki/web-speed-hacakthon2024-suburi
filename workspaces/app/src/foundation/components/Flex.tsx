@@ -66,7 +66,7 @@ const _Flex: React.FC<FlexProps> = ({
 
   const setStyle: Record<string, unknown> = {}
   for (const [key, value] of Object.entries(flexStyle)) {
-    if (value) {
+    if (value !== undefined) {
       setStyle[key] = value;
     }
   }
