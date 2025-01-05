@@ -4,7 +4,6 @@ import './HeroImage.module.css';
 export const HeroImage: React.FC = () => {
   return (
     <div className="HeroImage___Wrapper__styled">
-      {/* <_Image ref={imageRef} alt="Cyber TOON" /> */}
       <picture>
         <source
           media="(max-width: 512px)"
