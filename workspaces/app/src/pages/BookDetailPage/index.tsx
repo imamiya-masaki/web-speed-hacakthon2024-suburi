@@ -44,7 +44,7 @@ const BookDetailPage: React.FC = () => {
     <Box height="100%" position="relative" px={Space * 2}>
       <section className='index___HeadingWrapper__styled' aria-label="作品情報">
         {bookImageUrl != null && (
-          <Image alt={book.name} height={256} objectFit="cover" src={bookImageUrl} width={192} />
+          <Image alt={book.name} height={256} className='use-image-alternative' objectFit="cover" src={bookImageUrl} width={192} />
         )}
         <Flex align="flex-start" direction="column" gap={Space * 1} justify="flex-end">
           <Box>
@@ -62,7 +62,7 @@ const BookDetailPage: React.FC = () => {
           <Link className='index___AuthorWrapper__styled' href={`/authors/${book.author.id}`}>
             {auhtorImageUrl != null && (
               <div className='index___AvatarWrapper__styled'>
-                <Image alt={book.author.name} height={32} objectFit="cover" src={auhtorImageUrl} width={32} />
+                <Image alt={book.author.name} height={32} className='use-image-alternative' objectFit="cover" src={auhtorImageUrl} width={32} />
               </div>
             )}
             <Text color={Color.MONO_100} typography={Typography.NORMAL14}>

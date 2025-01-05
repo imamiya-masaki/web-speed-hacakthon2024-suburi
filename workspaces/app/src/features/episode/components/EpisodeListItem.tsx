@@ -28,7 +28,7 @@ export const EpisodeListItem: React.FC<Props> = ({ bookId, episodeId }) => {
         <Flex align="flex-start" gap={Space * 2.5} justify="flex-start">
           {imageUrl != null && (
             <div className='EpisodeListItem___ImgWrapper__styled'>
-              <Image alt={episode.name} height={96} objectFit="cover" src={imageUrl} width={96} />
+              <Image alt={episode.name} height={96} className='use-image-alternative' objectFit="cover" src={imageUrl} width={96} />
             </div>
           )}
           <Box width="100%">

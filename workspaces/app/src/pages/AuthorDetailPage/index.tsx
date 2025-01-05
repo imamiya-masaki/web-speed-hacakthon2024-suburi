@@ -30,7 +30,7 @@ const AuthorDetailPage: React.FC = () => {
       <section className='index___HeadingWrapper__styled' aria-label="作者情報">
         {imageUrl != null && (
           <div className='index___AuthorImageWrapper__styled'>
-            <Image key={author.id} alt={author.name} height={128} objectFit="cover" src={imageUrl} width={128} />
+            <Image className='use-image-alternative' key={author.id} alt={author.name} height={128} objectFit="cover" src={imageUrl} width={128} />
           </div>
         )}
 

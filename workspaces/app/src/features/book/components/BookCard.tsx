@@ -23,7 +23,7 @@ const BookCard: React.FC<Props> = ({ bookId }) => {
     <Link href={`/books/${bookId}`} className='BookCard___Wrapper__styled'>
       {imageUrl != null && (
         <div className='BookCard___ImgWrapper__styled'>
-          <Image alt={book.image.alt} height={128} objectFit="cover" src={imageUrl} width={192} />
+          <Image alt={book.image.alt} height={128} className='use-image-alternative' objectFit="cover" src={imageUrl} width={192} />
         </div>
       )}
 
@@ -35,7 +35,7 @@ const BookCard: React.FC<Props> = ({ bookId }) => {
         <Flex align="center" gap={Space * 1} justify="flex-end">
           {authorImageUrl != null && (
             <div className="BookCard___AvatarWrapper__styled">
-              <Image alt={book.author.name} height={32} objectFit="cover" src={authorImageUrl} width={32} />
+              <Image alt={book.author.name} height={32} className='use-image-alternative' objectFit="cover" src={authorImageUrl} width={32} />
             </div>
           )}
           <Text color={Color.MONO_100} typography={Typography.NORMAL12}>
