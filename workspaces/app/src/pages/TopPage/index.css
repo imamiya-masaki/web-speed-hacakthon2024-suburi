@@ -5,3 +5,7 @@
 .toppage-release {
   height: 282px;
 }
+
+.toppage-ranking {
+  min-height: 400px;
+}

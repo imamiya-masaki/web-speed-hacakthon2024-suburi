@@ -5,13 +5,40 @@ import { SWRConfig } from 'swr';
 import { AdminApp } from '@wsh-2024/admin/src/index';
 import { ClientApp } from '@wsh-2024/app/src/index';
 
-import { preloadImages } from './utils/preloadImages';
 import { registerServiceWorker } from './utils/registerServiceWorker';
 
+const data = async () => {
+  document.addEventListener('DOMContentLoaded', () => {
+    // 1. スクリプトタグを取得
+    const injectDataScript = document.getElementById('inject-data');
+  
+    if (injectDataScript) {
+      try {
+        // 2. テキストコンテンツを取得し、JSONとしてパース
+        const injectData = JSON.parse(injectDataScript.textContent || '{}');
+        
+        // 取得したデータを使用
+        console.log('Injected Data:', injectData);
+        (window as any).injectData = injectData
+        // 例: グローバルな状態管理にセットする
+        // store.dispatch(setInitialData(injectData));
+  
+        // 例: Reactコンポーネントに渡す
+        // ReactDOM.hydrate(<App initialData={injectData} />, document.getElementById('root'));
+        
+      } catch (error) {
+        console.error('インジェクトデータのパース中にエラーが発生しました:', error);
+      }
+    } else {
+      console.warn('インジェクトデータのスクリプトタグが見つかりませんでした。');
+    }
+  });
+}
+
 const main = async () => {
+  await data();
   try {
     await registerServiceWorker();
-    // await preloadImages();
 
       const rootElement = document.getElementById('root');
       if (!rootElement) {
@@ -35,5 +62,4 @@ const main = async () => {
     console.error(error);
   }
 };
-
 main();

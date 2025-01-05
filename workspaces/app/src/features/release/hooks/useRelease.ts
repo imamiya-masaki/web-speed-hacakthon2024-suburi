@@ -1,11 +1,14 @@
-import useSWR from 'swr';
+import { useEffect } from 'react';
 
-import { releaseApiClient } from '../apiClient/releaseApiClient';
-
-export function useRelease(...[options]: Parameters<typeof releaseApiClient.fetch>) {
-  return useSWR(releaseApiClient.fetch$$key(options), releaseApiClient.fetch, { suspense: true, fallbackData: {
+export function useRelease() {
+  let data: any  = {
     "id": "",
     "dayOfWeek": "",
     "books": []
-  } });
+  };
+  useEffect(() => {
+    data = (window as any).injectData.releases
+    console.log('data', data)
+  },[])
+  return data;
 }

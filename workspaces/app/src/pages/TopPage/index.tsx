@@ -1,8 +1,8 @@
 import './index.css'
 
 import _ from 'lodash';
-import moment from 'moment-timezone';
-import { Suspense, useId } from 'react';
+// import moment from 'moment-timezone';
+import { Suspense, useId, useState, useEffect } from 'react';
 
 import { BookCard } from '../../features/book/components/BookCard';
 import { FeatureCard } from '../../features/feature/components/FeatureCard';
@@ -15,15 +15,22 @@ import { Flex } from '../../foundation/components/Flex';
 import { Spacer } from '../../foundation/components/Spacer';
 import { Text } from '../../foundation/components/Text';
 import { Color, Space, Typography } from '../../foundation/styles/variables';
-import { getDayOfWeekStr } from '../../lib/date/getDayOfWeekStr';
+// import { getDayOfWeekStr } from '../../lib/date/getDayOfWeekStr';
 
 import { CoverSection } from './internal/CoverSection';
 
 const TopPage: React.FC = () => {
-  const todayStr = getDayOfWeekStr(moment());
-  const { data: release } = useRelease({ params: { dayOfWeek: todayStr } });
-  const { data: featureList } = useFeatureList({ query: {} });
-  const { data: rankingList } = useRankingList({ query: {} });
+  // const todayStr = getDayOfWeekStr(moment());
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [release, setRelease] = useState<any>({dayOfWeek: "", id: "", books: []});
+  const [featureList, setFeatureList] = useState<any>([]);
+  const [rankingList, setRankingList] = useState<any>([]);
+  useEffect(() => {
+    setRelease((window as any).injectData.releases)
+    setFeatureList((window as any).injectData.features)
+    setRankingList((window as any).injectData.ranking)
+    setIsLoaded(true)
+  },[])
 
   const pickupA11yId = useId();
   const rankingA11yId = useId();
@@ -59,7 +66,7 @@ const TopPage: React.FC = () => {
           </Text>
           <Spacer height={Space * 2} />
           <Box maxWidth="100%" overflowX="hidden" overflowY="hidden">
-              <Flex align="center" as="ul" direction="column" justify="center">
+              <Flex align="center" as="ul" direction="column" justify="center" className={`${!isLoaded ? 'toppage-ranking' : ''}`}>
                 {_.map(rankingList, (ranking) => (
                   <RankingCard key={ranking.id} bookId={ranking.book.id} insertBook={ranking.book}/>
                 ))}

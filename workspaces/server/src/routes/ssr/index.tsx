@@ -6,7 +6,6 @@ import jsesc from 'jsesc';
 import moment from 'moment-timezone';
 import { renderToReadableStream } from 'react-dom/server.browser';
 import { StaticRouter } from 'react-router-dom/server';
-import { unstable_serialize } from 'swr';
 
 import { featureApiClient } from '@wsh-2024/app/src/features/feature/apiClient/featureApiClient';
 import { rankingApiClient } from '@wsh-2024/app/src/features/ranking/apiClient/rankingApiClient';
@@ -24,19 +23,19 @@ async function createInjectDataStr(): Promise<Record<string, unknown>> {
   {
     const dayOfWeek = getDayOfWeekStr(moment());
     const releases = await releaseApiClient.fetch({ params: { dayOfWeek } });
-    json[unstable_serialize(releaseApiClient.fetch$$key({ params: { dayOfWeek } }))] = releases;
+    json["releases"] = releases;
   }
   console.log('releases:end', performance.now())
   console.log('feature:start', performance.now())
   {
     const features = await featureApiClient.fetchList({ query: {} });
-    json[unstable_serialize(featureApiClient.fetchList$$key({ query: {} }))] = features;
+    json["features"] = features;
   }
   console.log('feature:end', performance.now())
   console.log('ranking:start', performance.now())
   {
     const ranking = await rankingApiClient.fetchList({ query: {} });
-    json[unstable_serialize(rankingApiClient.fetchList$$key({ query: {} }))] = ranking;
+    json["ranking"] = ranking;
   }
   console.log('ranking:end', performance.now())
 
@@ -63,7 +62,7 @@ const createHeaderHTML = async({
           json: true,
           minimal: true,
         })}
-      </script>`,
+      </script>`
     );
   return content;
 }
@@ -85,7 +84,7 @@ app.get('*', async (c) => {
           </StaticRouter>,
           </div>
           </body>
-        </html>,
+        </html>
     );
 
     console.log('end', performance.now())

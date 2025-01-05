@@ -1,7 +1,9 @@
-import useSWR from 'swr';
+import { useEffect } from 'react';
 
-import { rankingApiClient } from '../apiClient/rankingApiClient';
-
-export function useRankingList(...[options]: Parameters<typeof rankingApiClient.fetchList>) {
-  return useSWR(rankingApiClient.fetchList$$key(options), rankingApiClient.fetchList, { suspense: true, fallbackData: [] });
+export function useRankingList() { 
+  let data: any[]  = [];
+  useEffect(() => {
+    data = (window as any).injectData.ranking
+  },[])
+  return data;
 }
