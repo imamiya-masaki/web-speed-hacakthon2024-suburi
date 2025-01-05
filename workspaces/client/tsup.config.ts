@@ -30,7 +30,7 @@ export default defineConfig(async (): Promise<Options[]> => {
         PATH_LIST: IMAGE_PATH_LIST.join(',') || '',
       },
       esbuildOptions(options) {
-        // options.drop = ['console'];
+        options.drop = ['console'];
         options.define = {
           ...options.define,
           global: 'globalThis',
