@@ -28,7 +28,6 @@ const EpisodeDetailPage: React.FC = () => {
       </section>
 
       <Separator />
-
       <Box aria-label="エピソード一覧" as="section" px={Space * 2}>
         <Flex align="center" as="ul" direction="column" justify="center">
           {book.episodes.map((episode) => (

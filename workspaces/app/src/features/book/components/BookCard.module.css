@@ -1,0 +1,29 @@
+.BookCard___Wrapper__styled {
+
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 8px;
+  justify-content: space-between;
+  padding: 16px;
+
+}
+
+.BookCard___ImgWrapper__styled {
+
+  > img {
+    border-radius: 8px 8px 0 0;
+  }
+
+}
+
+.BookCard___AvatarWrapper__styled {
+
+  width: 32px;
+  height: 32px;
+  > img {
+    border-radius: 50%;
+  }
+
+}

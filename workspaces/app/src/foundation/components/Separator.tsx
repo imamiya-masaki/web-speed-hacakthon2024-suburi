@@ -1,17 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
-
+import './Separator.module.css'
 import { Color } from '../styles/variables';
 
-const _Wrapper = styled.div`
-  width: 100%;
-`;
-
-const _Separator = styled.img`
-  display: block;
-  width: 100%;
-  height: 1px;
-`;
 
 export const Separator: React.FC = () => {
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -42,8 +32,8 @@ export const Separator: React.FC = () => {
   }, []);
 
   return (
-    <_Wrapper ref={wrapperRef}>
-      {imgUrl != null ? <_Separator aria-hidden={true} height={1} src={imgUrl} width="100%" /> : null}
-    </_Wrapper>
+    <div className='Separator___Wrapper__styled' ref={wrapperRef}>
+      {imgUrl != null ? <img className='Separator___Separator__styled' aria-hidden={true} height={1} src={imgUrl} width="100%" /> : null}
+    </div>
   );
 };

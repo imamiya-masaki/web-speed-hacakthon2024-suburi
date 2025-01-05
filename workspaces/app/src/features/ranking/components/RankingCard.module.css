@@ -1,0 +1,31 @@
+.RankingCard___Wrapper__styled {
+
+  width: 100%;
+
+}
+
+.RankingCard___Link__styled {
+
+  width: 100%;
+
+}
+
+.RankingCard___ImgWrapper__styled {
+
+  width: 96px;
+  height: 96px;
+  > img {
+    border-radius: 8px;
+  }
+
+}
+
+.RankingCard___AvatarWrapper__styled {
+
+  width: 32px;
+  height: 32px;
+  > img {
+    border-radius: 50%;
+  }
+
+}

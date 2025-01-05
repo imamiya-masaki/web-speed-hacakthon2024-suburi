@@ -1,0 +1,41 @@
+.FeatureCard___Wrapper__styled {
+
+  display: grid;
+  gap: 8px;
+  background-color: #FFFFFF;
+  padding: 12px;
+  border-radius: 8px;
+  grid-template-columns: auto 1fr;
+  flex-shrink: 0;
+  border: 1px solid #D3D3D3;
+
+}
+
+.FeatureCard___ImgWrapper__styled {
+
+  width: 96px;
+  height: 96px;
+  > img {
+    border-radius: 8px;
+  }
+
+}
+
+.FeatureCard___ContentWrapper__styled {
+
+  display: grid;
+  gap: 8px;
+  max-width: 200px;
+  width: 100%;
+
+}
+
+.FeatureCard___AvatarWrapper__styled {
+
+  width: 32px;
+  height: 32px;
+  > img {
+    border-radius: 50%;
+  }
+
+}

@@ -1,17 +1,11 @@
 import { useRef } from 'react';
 import { useAsync } from 'react-use';
-import styled from 'styled-components';
+import './ComicViewerPage.module.css'
+
 
 import { decrypt } from '@wsh-2024/image-encrypt/src/decrypt';
 
 import { getImageUrl } from '../../../lib/image/getImageUrl';
-
-const _Canvas = styled.canvas`
-  height: 100%;
-  width: auto;
-  flex-grow: 0;
-  flex-shrink: 0;
-`;
 
 type Props = {
   pageImageId: string;
@@ -45,5 +39,5 @@ export const ComicViewerPage = ({ pageImageId }: Props) => {
     canvas.setAttribute('role', 'img');
   }, [pageImageId]);
 
-  return <_Canvas ref={ref} />;
+  return <canvas className='ComicViewerPage___Canvas__styled' ref={ref} />;
 };

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import './EpisodeListItem.module.css';
 
 import { Box } from '../../../foundation/components/Box';
 import { Flex } from '../../../foundation/components/Flex';
@@ -8,24 +8,8 @@ import { Separator } from '../../../foundation/components/Separator';
 import { Spacer } from '../../../foundation/components/Spacer';
 import { Text } from '../../../foundation/components/Text';
 import { useImage } from '../../../foundation/hooks/useImage';
-import { Color, Radius, Space, Typography } from '../../../foundation/styles/variables';
+import { Color, Space, Typography } from '../../../foundation/styles/variables';
 import { useEpisode } from '../hooks/useEpisode';
-
-const _Wrapper = styled.li`
-  width: 100%;
-`;
-
-const _Link = styled(Link)`
-  width: 100%;
-`;
-
-const _ImgWrapper = styled.div`
-  width: 96px;
-  height: 96px;
-  > img {
-    border-radius: ${Radius.SMALL};
-  }
-`;
 
 type Props = {
   bookId: string;
@@ -38,14 +22,14 @@ export const EpisodeListItem: React.FC<Props> = ({ bookId, episodeId }) => {
   const imageUrl = useImage({ height: 96, imageId: episode.image.id, width: 96 });
 
   return (
-    <_Wrapper>
-      <_Link href={`/books/${bookId}/episodes/${episode.id}`}>
+    <li className='EpisodeListItem___Wrapper__styled'>
+      <Link className='EpisodeListItem___Link__styled' href={`/books/${bookId}/episodes/${episode.id}`}>
         <Spacer height={Space * 1.5} />
         <Flex align="flex-start" gap={Space * 2.5} justify="flex-start">
           {imageUrl != null && (
-            <_ImgWrapper>
+            <div className='EpisodeListItem___ImgWrapper__styled'>
               <Image alt={episode.name} height={96} objectFit="cover" src={imageUrl} width={96} />
-            </_ImgWrapper>
+            </div>
           )}
           <Box width="100%">
             <Flex align="flex-start" direction="column" gap={Space * 1} justify="flex-start">
@@ -66,7 +50,7 @@ export const EpisodeListItem: React.FC<Props> = ({ bookId, episodeId }) => {
         </Flex>
         <Spacer height={Space * 1.5} />
         <Separator />
-      </_Link>
-    </_Wrapper>
+      </Link>
+    </li>
   );
 };

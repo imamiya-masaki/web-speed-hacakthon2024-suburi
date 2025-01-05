@@ -47,7 +47,7 @@ const _Flex: React.FC<FlexProps> = ({
   as
 }) => {
   
-  const flexStyle: CSSProperties = {
+  const flexStyle = {
     display: 'flex',
     alignItems: $align,
     flexDirection: $direction,
@@ -62,11 +62,18 @@ const _Flex: React.FC<FlexProps> = ({
     paddingLeft: addUnitIfNeeded($pl ?? $px),
     paddingRight: addUnitIfNeeded($pr ?? $px),
     ...style, // 外部からのスタイルを上書き可能にする
-  };
+  } satisfies CSSProperties;
+
+  const setStyle: Record<string, unknown> = {}
+  for (const [key, value] of Object.entries(flexStyle)) {
+    if (value !== undefined) {
+      setStyle[key] = value;
+    }
+  }
 
   const Component = as || 'div';
 
-  return <Component style={flexStyle}>{children}</Component>;
+  return <Component style={setStyle}>{children}</Component>;
 };
 
 type Props = {

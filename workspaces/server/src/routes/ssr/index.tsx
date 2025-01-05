@@ -4,7 +4,6 @@ import { Hono } from 'hono';
 import { HTTPException } from 'hono/http-exception';
 import jsesc from 'jsesc';
 import moment from 'moment-timezone';
-import ReactDOMServer from 'react-dom/server';
 import { renderToReadableStream } from 'react-dom/server.browser';
 import { StaticRouter } from 'react-router-dom/server';
 import { unstable_serialize } from 'swr';
@@ -15,8 +14,7 @@ import { releaseApiClient } from '@wsh-2024/app/src/features/release/apiClient/r
 import { ClientApp } from '@wsh-2024/app/src/index';
 import { getDayOfWeekStr } from '@wsh-2024/app/src/lib/date/getDayOfWeekStr';
 
-import { HEADER_HTML_PATH, INDEX_HTML_PATH } from '../../constants/paths';
-import { ServerStyleSheet } from 'styled-components';
+import { HEADER_HTML_PATH } from '../../constants/paths';
 
 const app = new Hono();
 
@@ -41,44 +39,10 @@ async function createInjectDataStr(): Promise<Record<string, unknown>> {
 
   return json;
 }
-async function createHTML({
-  // body,
-  injectData,
-  styleTags,
-}: {
-  // body: string;
-  injectData: Record<string, unknown>;
-  styleTags: string;
-}): Promise<string> {
-  let htmlContent: string = "";
-  try {
-   htmlContent = await fs.readFile(INDEX_HTML_PATH, 'utf-8');
-  } catch (e) {
-    console.log('createHTML:error', e)
-  }
-  console.log('htmlContent:end')
-  const content = htmlContent
-    // .replaceAll('<div id="root"></div>', `<div id="root">${body}</div>`)
-    .replaceAll('<style id="tag"></style>', styleTags)
-    .replaceAll(
-      '<script id="inject-data" type="application/json"></script>',
-      `<script id="inject-data" type="application/json">
-        ${jsesc(injectData, {
-          isScriptContext: true,
-          json: true,
-          minimal: true,
-        })}
-      </script>`,
-    );
-    console.log('content:end')
-  return content;
-}
 
 const createHeaderHTML = async({
-  injectData,
-  styleTags}: {
+  injectData}: {
     injectData: Record<string, unknown>;
-    styleTags: string;
   }) => {
     let htmlContent: string = "";
   try {
@@ -88,7 +52,6 @@ const createHeaderHTML = async({
   }
   const content = htmlContent
     // .replaceAll('<div id="root"></div>', `<div id="root">${body}</div>`)
-    .replaceAll('<style id="tag"></style>', styleTags)
     .replaceAll(
       '<script id="inject-data" type="application/json"></script>',
       `<script id="inject-data" type="application/json">
@@ -103,24 +66,19 @@ const createHeaderHTML = async({
   return content;
 }
 
-app.get('*', async (c,next) => {
+app.get('*', async (c) => {
   const injectData = await createInjectDataStr();
-  const sheet = new ServerStyleSheet();
-  const styleTags = sheet.getStyleTags();
-  const header = await createHeaderHTML({injectData, styleTags})
+  const header = await createHeaderHTML({injectData})
   console.log({header})
-  const body = sheet.collectStyles(
-    <StaticRouter location={c.req.path}>
-      <ClientApp />
-    </StaticRouter>,
-  )
   try {
     const stream = await renderToReadableStream(
       <html >
         <head dangerouslySetInnerHTML={{ __html: header }}/>
         <body>
           <div id="root">
-            {body}
+          <StaticRouter location={c.req.path}>
+            <ClientApp />
+          </StaticRouter>,
           </div>
           </body>
         </html>,

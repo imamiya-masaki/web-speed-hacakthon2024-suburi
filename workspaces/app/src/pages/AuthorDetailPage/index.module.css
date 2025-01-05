@@ -1,0 +1,19 @@
+.index___HeadingWrapper__styled {
+
+  display: grid;
+  align-items: start;
+  grid-template-columns: auto 1fr;
+  padding-bottom:16px;
+  gap:16px;
+
+}
+
+.index___AuthorImageWrapper__styled {
+
+  width: 128px;
+  height: 128px;
+  > img {
+    border-radius: 50%;
+  }
+
+}
