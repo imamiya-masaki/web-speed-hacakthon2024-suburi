@@ -35,17 +35,24 @@ export const Text: React.FC<Props> = ({
   ...rest
 }) => {
   // スタイルオブジェクトの構築
-  const style: React.CSSProperties = {
+  const style = {
     color,
     flexGrow,
     flexShrink,
     fontWeight: weight,
     ...parseTypography(typography),
-  };
+  } satisfies React.CSSProperties;
+
+  const setStyle: Record<string, unknown> = {}
+  for (const [key, value] of Object.entries(style)) {
+    if (value) {
+      setStyle[key] = value;
+    }
+  }
 
   return (
     <span
-      style={style}
+      style={setStyle}
       id={id}
       {...rest}
     >

@@ -82,7 +82,7 @@ export const Box: React.FC<Props> = ({
   width,
 }) => {
   // スタイルオブジェクトの構築
-  const style: React.CSSProperties = {
+  const style = {
     backgroundColor,
     borderRadius: radius,
     bottom: addUnitIfNeeded(bottom),
@@ -109,9 +109,17 @@ export const Box: React.FC<Props> = ({
     right: addUnitIfNeeded(right),
     top: addUnitIfNeeded(top),
     width: addUnitIfNeeded(width),
-  };
+  } satisfies React.CSSProperties;
+
+  const setStyle: Record<string, string> = {}
+  for (const [key, value] of Object.entries(style)) {
+    if (value) {
+      setStyle[key] = value;
+    }
+  }
+  
   return React.createElement(as, {
-    style,
+    style: setStyle,
     'aria-label': ariaLabel,
     'aria-labelledby': ariaLabelledBy,
   }, children);

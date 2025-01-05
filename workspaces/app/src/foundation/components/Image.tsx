@@ -26,9 +26,16 @@ export const Image: React.FC<Props> = ({
     display: 'block',
   };
 
+  const setStyle: Record<string, unknown> = {}
+  for (const [key, value] of Object.entries(style)) {
+    if (value) {
+      setStyle[key] = value;
+    }
+  }
+
   return (
     <img
-      style={style}
+      style={setStyle}
       loading={loading}
       {...rest}
     />

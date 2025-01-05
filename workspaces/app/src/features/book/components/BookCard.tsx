@@ -7,7 +7,7 @@ import { Text } from '../../../foundation/components/Text';
 import { useImage } from '../../../foundation/hooks/useImage';
 import { Color, Space, Typography } from '../../../foundation/styles/variables';
 import { useBook } from '../hooks/useBook';
-import "./bookCard.module.css";
+import "./BookCard.module.css";
 
 type Props = {
   bookId: string;

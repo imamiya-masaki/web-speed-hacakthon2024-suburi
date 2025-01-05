@@ -1,11 +1,12 @@
 .BookCard___Wrapper__styled {
 
+  align-items: stretch;
   display: flex;
   flex-direction: column;
-  border-radius: 8px;
-  background-color: #FFFFFF;
-  max-width: 192px;
-  border: 1px solid #D3D3D3;
+  flex-grow: 1;
+  gap: 8px;
+  justify-content: space-between;
+  padding: 16px;
 
 }
 

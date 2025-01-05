@@ -2,7 +2,7 @@ import './CoverSection.module.css'
 
 import { Link } from '../../../foundation/components/Link';
 import { Text } from '../../../foundation/components/Text';
-import { Color, Radius, Space, Typography } from '../../../foundation/styles/variables';
+import { Color, Typography } from '../../../foundation/styles/variables';
 
 import { HeroImage } from './HeroImage';
 import { Search } from '@mui/icons-material';
