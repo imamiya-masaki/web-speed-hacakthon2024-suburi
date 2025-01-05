@@ -1,22 +1,16 @@
+// Text.tsx
+
 import type * as CSS from 'csstype';
 import React from 'react';
-import styled from 'styled-components';
 
 import type { Color, Typography } from '../styles/variables';
 
-const _Text = styled.span<{
-  $color: string;
-  $flexGrow?: CSS.Property.FlexGrow;
-  $flexShrink?: CSS.Property.FlexShrink;
-  $typography: string;
-  $weight: string;
-}>`
-  ${({ $typography }) => $typography};
-  color: ${({ $color }) => $color};
-  flex-grow: ${({ $flexGrow }) => $flexGrow};
-  flex-shrink: ${({ $flexShrink }) => $flexShrink};
-  font-weight: ${({ $weight }) => $weight};
-`;
+/**
+ * 数値に 'px' を追加し、文字列の場合はそのまま返す関数
+ * @param value - 数値または文字列
+ * @returns 'px' が追加された文字列、または元の文字列
+ */
+
 
 type Props = {
   as?: keyof JSX.IntrinsicElements;
@@ -27,10 +21,10 @@ type Props = {
   id?: string;
   typography: Typography;
   weight?: 'bold' | 'normal';
-};
+} & Omit<JSX.IntrinsicElements['span'], 'style' | 'as'>; // 他の属性を必要に応じて追加
 
 export const Text: React.FC<Props> = ({
-  as,
+  as = 'span',
   children,
   color,
   flexGrow,
@@ -38,18 +32,48 @@ export const Text: React.FC<Props> = ({
   id,
   typography,
   weight = 'normal',
+  ...rest
 }) => {
+  // スタイルオブジェクトの構築
+  const style: React.CSSProperties = {
+    color,
+    flexGrow,
+    flexShrink,
+    fontWeight: weight,
+    ...parseTypography(typography),
+  };
+
   return (
-    <_Text
-      $color={color}
-      $flexGrow={flexGrow}
-      $flexShrink={flexShrink}
-      $typography={typography}
-      $weight={weight}
-      as={as}
+    <span
+      style={style}
       id={id}
+      {...rest}
     >
       {children}
-    </_Text>
+    </span>
   );
+};
+
+/**
+ * Typography の文字列を React の style オブジェクトに変換する関数
+ * 例: "font-size: 16px; line-height: 1.5;" を { fontSize: '16px', lineHeight: 1.5 } に変換
+ * @param typography - Typography の文字列
+ * @returns React.CSSProperties オブジェクト
+ */
+const parseTypography = (typography: string): React.CSSProperties => {
+  const styles: Record<string, string | number> = {};
+  const rules = typography.split(';').filter(rule => rule.trim() !== '');
+
+  rules.forEach(rule => {
+    const [key, value] = rule.split(':').map(part => part.trim());
+    if (key && value) {
+      // CSS プロパティ名を camelCase に変換
+      const camelKey = key.replace(/-([a-z])/g, (_, p1) => String(p1).toUpperCase());
+      // 数値として解釈できる場合は数値型に変換
+      const numericValue = Number(value);
+      styles[camelKey] = isNaN(numericValue) ? value : numericValue;
+    }
+  });
+
+  return styles;
 };

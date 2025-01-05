@@ -1,14 +1,9 @@
 import "./heroimage.css"
-
-import styled from 'styled-components';
-const _Wrapper = styled.div`
-  aspect-ratio: 16 / 9;
-  width: 100%;
-`;
+import './HeroImage.module.css';
 
 export const HeroImage: React.FC = () => {
   return (
-    <_Wrapper>
+    <div className="HeroImage___Wrapper__styled">
       {/* <_Image ref={imageRef} alt="Cyber TOON" /> */}
       <picture>
         <source
@@ -28,6 +23,6 @@ export const HeroImage: React.FC = () => {
           className="hero-image"
         />
       </picture>
-    </_Wrapper>
+    </div>
   );
 };

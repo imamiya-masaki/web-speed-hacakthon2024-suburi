@@ -1,8 +1,9 @@
+import './index.module.css'
+
 import { useAtom } from 'jotai/react';
 import { Suspense, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import type { RouteParams } from 'regexparam';
-import { styled } from 'styled-components';
 import invariant from 'tiny-invariant';
 
 import { FavoriteBookAtomFamily } from '../../features/book/atoms/FavoriteBookAtomFamily';
@@ -20,30 +21,6 @@ import { useImage } from '../../foundation/hooks/useImage';
 import { Color, Space, Typography } from '../../foundation/styles/variables';
 
 import { BottomNavigator } from './internal/BottomNavigator';
-
-const _HeadingWrapper = styled.section`
-  display: grid;
-  align-items: start;
-  grid-template-columns: auto 1fr;
-  padding-bottom: ${Space * 2}px;
-  gap: ${Space * 2}px;
-`;
-
-const _AuthorWrapper = styled(Link)`
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  width: 100%;
-  gap: ${Space * 1}px;
-`;
-
-const _AvatarWrapper = styled.div`
-  width: 32px;
-  height: 32px;
-  > img {
-    border-radius: 50%;
-  }
-`;
 
 const BookDetailPage: React.FC = () => {
   const { bookId } = useParams<RouteParams<'/books/:bookId'>>();
@@ -65,7 +42,7 @@ const BookDetailPage: React.FC = () => {
 
   return (
     <Box height="100%" position="relative" px={Space * 2}>
-      <_HeadingWrapper aria-label="作品情報">
+      <section className='index___HeadingWrapper__styled' aria-label="作品情報">
         {bookImageUrl != null && (
           <Image alt={book.name} height={256} objectFit="cover" src={bookImageUrl} width={192} />
         )}
@@ -82,18 +59,18 @@ const BookDetailPage: React.FC = () => {
 
           <Spacer height={Space * 1} />
 
-          <_AuthorWrapper href={`/authors/${book.author.id}`}>
+          <Link className='index___AuthorWrapper__styled' href={`/authors/${book.author.id}`}>
             {auhtorImageUrl != null && (
-              <_AvatarWrapper>
+              <div className='index___AvatarWrapper__styled'>
                 <Image alt={book.author.name} height={32} objectFit="cover" src={auhtorImageUrl} width={32} />
-              </_AvatarWrapper>
+              </div>
             )}
             <Text color={Color.MONO_100} typography={Typography.NORMAL14}>
               {book.author.name}
             </Text>
-          </_AuthorWrapper>
+          </Link>
         </Flex>
-      </_HeadingWrapper>
+      </section>
 
       <BottomNavigator
         bookId={bookId}

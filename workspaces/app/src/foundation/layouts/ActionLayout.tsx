@@ -1,16 +1,12 @@
 import { Outlet } from 'react-router-dom';
-import styled from 'styled-components';
+import './ActionLayout.module.css'
+
 
 import { Box } from '../components/Box';
 import { Container } from '../components/Container';
 import { Flex } from '../components/Flex';
 import { Footer } from '../components/Footer';
-import { Color, Space } from '../styles/variables';
-
-const _Header = styled.header`
-  padding: ${Space * 2}px;
-  border-bottom: 1px solid ${Color.MONO_0};
-`;
+import { Space } from '../styles/variables';
 
 type Props = {
   leftContent?: React.ReactNode;
@@ -20,12 +16,12 @@ type Props = {
 export const ActionLayout: React.FC<Props> = ({ leftContent, rightContent }) => {
   return (
     <Container>
-      <_Header>
+      <header className='ActionLayout___Header__styled'>
         <Flex align="center" justify="space-between">
           {leftContent}
           {rightContent}
         </Flex>
-      </_Header>
+      </header>
 
       <Box as="main" height="100%" py={Space * 2}>
         <Outlet />

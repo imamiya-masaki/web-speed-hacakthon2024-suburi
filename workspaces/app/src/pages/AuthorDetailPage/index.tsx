@@ -1,7 +1,7 @@
 import { Suspense, useId } from 'react';
 import { useParams } from 'react-router-dom';
 import type { RouteParams } from 'regexparam';
-import { styled } from 'styled-components';
+import './index.module.css'
 import invariant from 'tiny-invariant';
 
 import { useAuthor } from '../../features/author/hooks/useAuthor';
@@ -15,21 +15,6 @@ import { Text } from '../../foundation/components/Text';
 import { useImage } from '../../foundation/hooks/useImage';
 import { Color, Space, Typography } from '../../foundation/styles/variables';
 
-const _HeadingWrapper = styled.section`
-  display: grid;
-  align-items: start;
-  grid-template-columns: auto 1fr;
-  padding-bottom: ${Space * 2}px;
-  gap: ${Space * 2}px;
-`;
-
-const _AuthorImageWrapper = styled.div`
-  width: 128px;
-  height: 128px;
-  > img {
-    border-radius: 50%;
-  }
-`;
 
 const AuthorDetailPage: React.FC = () => {
   const { authorId } = useParams<RouteParams<'/authors/:authorId'>>();
@@ -42,11 +27,11 @@ const AuthorDetailPage: React.FC = () => {
 
   return (
     <Box height="100%" px={Space * 2}>
-      <_HeadingWrapper aria-label="作者情報">
+      <section className='index___HeadingWrapper__styled' aria-label="作者情報">
         {imageUrl != null && (
-          <_AuthorImageWrapper>
+          <div className='index___AuthorImageWrapper__styled'>
             <Image key={author.id} alt={author.name} height={128} objectFit="cover" src={imageUrl} width={128} />
-          </_AuthorImageWrapper>
+          </div>
         )}
 
         <Flex align="flex-start" direction="column" gap={Space * 1} justify="flex-start">
@@ -57,7 +42,7 @@ const AuthorDetailPage: React.FC = () => {
             {author.description}
           </Text>
         </Flex>
-      </_HeadingWrapper>
+      </section>
 
       <Separator />
 

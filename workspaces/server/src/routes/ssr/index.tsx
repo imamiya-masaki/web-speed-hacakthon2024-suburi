@@ -4,7 +4,6 @@ import { Hono } from 'hono';
 import { HTTPException } from 'hono/http-exception';
 import jsesc from 'jsesc';
 import moment from 'moment-timezone';
-import ReactDOMServer from 'react-dom/server';
 import { renderToReadableStream } from 'react-dom/server.browser';
 import { StaticRouter } from 'react-router-dom/server';
 import { unstable_serialize } from 'swr';
