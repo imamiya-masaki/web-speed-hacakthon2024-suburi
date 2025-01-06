@@ -83,7 +83,9 @@ app.get('*', async (c) => {
 
     console.log('end', performance.now())
     return new Response(stream, {
-      headers: { 'content-type': 'text/html' },
+      headers: { 'content-type': 'text/html',
+        'Link': '<https://webspeed.anpanpass.com/client.global.js>; rel=preload; as=script'
+       },
     });
   } catch (cause) {
     // console.log({cause})
