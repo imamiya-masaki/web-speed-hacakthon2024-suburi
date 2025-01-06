@@ -11,3 +11,10 @@
   height: 1px;
 
 }
+
+.Separtor_line {
+  width: 100%;
+  height: 1px;
+
+  background-color: #D3D3D3;
+}
