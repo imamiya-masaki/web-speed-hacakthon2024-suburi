@@ -6,10 +6,7 @@ import { Suspense, useId, useState, useEffect } from 'react';
 
 import { BookCard } from '../../features/book/components/BookCard';
 import { FeatureCard } from '../../features/feature/components/FeatureCard';
-import { useFeatureList } from '../../features/feature/hooks/useFeatureList';
 import { RankingCard } from '../../features/ranking/components/RankingCard';
-import { useRankingList } from '../../features/ranking/hooks/useRankingList';
-import { useRelease } from '../../features/release/hooks/useRelease';
 import { Box } from '../../foundation/components/Box';
 import { Flex } from '../../foundation/components/Flex';
 import { Spacer } from '../../foundation/components/Spacer';
@@ -48,13 +45,11 @@ const TopPage: React.FC = () => {
           </Text>
           <Spacer height={Space * 2} />
           <Box maxWidth="100%" overflowX="scroll" overflowY="hidden">
-            <Suspense fallback={<>loading...</>}>
               <Flex align="stretch" direction="row" gap={Space * 2} justify="flex-start" className='toppage-pickup'>
                 {_.map(featureList, (feature) => (
                   <FeatureCard key={feature.id} bookId={feature.book.id} insertBook={feature.book}/>
                 ))}
               </Flex>
-            </Suspense>
           </Box>
         </Box>
 
@@ -81,13 +76,11 @@ const TopPage: React.FC = () => {
             </Text>
             <Spacer height={Space * 2} />
             <Box maxWidth="100%" overflowX="scroll" overflowY="hidden">
-            <Suspense fallback={<></>}>
               <Flex align="stretch" gap={Space * 2} justify="flex-start" className='toppage-release'>
                 {_.map(release.books, (book) => (
                   <BookCard key={book.id} bookId={book.id} insertBook={book}/>
                 ))}
               </Flex>
-            </Suspense>
             </Box>
           </Box>
       </Box>

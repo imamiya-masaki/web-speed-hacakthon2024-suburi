@@ -1,5 +1,3 @@
-import './setup';
-
 import { Dialog } from './foundation/components/Dialog';
 import { Router } from './routes';
 

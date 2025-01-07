@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom/client';
 import { AdminApp } from '@wsh-2024/admin/src/index';
-
+import { registerServiceWorker } from './utils/registerServiceWorker';
 // const data = async () => {
 //   document.addEventListener('DOMContentLoaded', () => {
 //     // 1. スクリプトタグを取得
@@ -31,6 +31,7 @@ import { AdminApp } from '@wsh-2024/admin/src/index';
 
 const main = async () => {
   // await data();
+  await registerServiceWorker();
   try {
       const rootElement = document.getElementById('root');
       if (!rootElement) {

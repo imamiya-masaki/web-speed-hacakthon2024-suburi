@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm';
+import { eq, or } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
 import { err, ok } from 'neverthrow';
 import type { Result } from 'neverthrow';
@@ -17,7 +17,7 @@ import type { PostBookResponse } from '@wsh-2024/schema/src/api/books/PostBookRe
 import { author, book, episode, episodePage, feature, ranking } from '@wsh-2024/schema/src/models';
 
 import { getDatabase } from '../database/drizzle';
-
+import jaconv from 'jaconv';
 type BookRepositoryInterface = {
   create(options: { body: PostBookRequestBody }): Promise<Result<PostBookResponse, HTTPException>>;
   delete(options: { params: DeleteBookRequestParams }): Promise<Result<DeleteBookResponse, HTTPException>>;
@@ -107,6 +107,18 @@ class BookRepository implements BookRepositoryInterface {
           }
           if (options.query.name != null) {
             return like(book.name, `%${options.query.name}%`);
+          }
+          
+          if (options.query.keyword != null) {
+            const keyowrd = options.query.keyword;
+            const likes: string[] = []
+            for (const toHalf of [jaconv.toZen, jaconv.toHan]) {
+              for (const toMozi of [jaconv.toHiragana, jaconv.toKatakana]) {
+                likes.push(toHalf(toMozi(keyowrd)))
+              }
+            }
+            return or(...likes.map(l => like(book.name, `%${l}%`)),
+            ...likes.map(l => like(book.nameRuby, `%${l}%`)))
           }
           return;
         },

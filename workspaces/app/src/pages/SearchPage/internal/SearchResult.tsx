@@ -1,4 +1,4 @@
-import { Suspense, useMemo } from 'react';
+import { Suspense } from 'react';
 
 import type { GetBookListResponse } from '@wsh-2024/schema/src/api/books/GetBookListResponse';
 
@@ -6,23 +6,16 @@ import { BookListItem } from '../../../features/book/components/BookListItem';
 import { Flex } from '../../../foundation/components/Flex';
 import { Text } from '../../../foundation/components/Text';
 import { Color, Typography } from '../../../foundation/styles/variables';
-import { isContains } from '../../../lib/filter/isContains';
+import { useBookList } from '../../../features/book/hooks/useBookList';
 
 type Props = {
-  books: GetBookListResponse;
   keyword: string;
 };
+export const SearchResult: React.FC<Props> = ({ keyword }) => {
 
-export const SearchResult: React.FC<Props> = ({ books, keyword }) => {
-  const relatedBooks = useMemo(() => {
-    if (keyword === '') {
-      return books;
-    }
-    return books.filter((book) => {
-      return isContains({ query: keyword, target: book.name }) || isContains({ query: keyword, target: book.nameRuby });
-    });
-  }, [books, keyword]);
+  const { data: books } = useBookList({ query: {keyword} });
 
+  const relatedBooks = books;
   return (
     <Flex align="center" as="ul" direction="column" justify="center">
       <Suspense

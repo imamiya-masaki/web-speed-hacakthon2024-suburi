@@ -4,6 +4,7 @@ import { SWRConfig } from 'swr';
 
 import { ClientApp } from '@wsh-2024/app/src/index';
 
+import { registerServiceWorker } from './utils/registerServiceWorker';
 const data = async () => {
   document.addEventListener('DOMContentLoaded', () => {
     // 1. スクリプトタグを取得
@@ -34,6 +35,7 @@ const data = async () => {
 
 const main = async () => {
   await data();
+  await registerServiceWorker();
   try {
       const rootElement = document.getElementById('root');
       if (!rootElement) {

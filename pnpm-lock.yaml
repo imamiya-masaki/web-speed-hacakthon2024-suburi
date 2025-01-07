@@ -298,13 +298,13 @@ importers:
         version: 0.0.83
       '@vanilla-extract/esbuild-plugin':
         specifier: 2.3.13
-        version: 2.3.13(@types/node@20.9.0)(babel-plugin-macros@3.1.0)(esbuild@0.19.12)(lightningcss@1.25.1)
+        version: 2.3.13(@types/node@20.9.0)(babel-plugin-macros@3.1.0)(esbuild@0.21.5)(lightningcss@1.25.1)
       '@wyw-in-js/esbuild':
         specifier: 0.5.5
-        version: 0.5.5(esbuild@0.19.12)(typescript@5.6.2)
+        version: 0.5.5(esbuild@0.21.5)(typescript@5.6.2)
       esbuild-plugin-polyfill-node:
         specifier: 0.3.0
-        version: 0.3.0(esbuild@0.19.12)
+        version: 0.3.0(esbuild@0.21.5)
       pkg-dir:
         specifier: 5.0.0
         version: 5.0.0
@@ -413,6 +413,9 @@ importers:
       image-js:
         specifier: 0.35.5
         version: 0.35.5
+      jaconv:
+        specifier: 1.0.1
+        version: 1.0.1
       jsdom:
         specifier: 24.0.0
         version: 24.0.0
@@ -4634,6 +4637,9 @@ packages:
 
   jackspeak@3.4.3:
     resolution: {integrity: sha512-OGlZQpz2yfahA/Rd1Y8Cd9SIEsqvXkLVoSw/cgwhnhFMDbsQFeZYoJJ7bIZBS9BcamUW96asq/npPWugM+RQBw==}
+
+  jaconv@1.0.1:
+    resolution: {integrity: sha512-MspcFqC6WXZ/NdPRJodu4jDoQWVWg/vUouQ3lYxnvVGMekNGeUEvz7r/I8cCLKXln0ca4IoYYA1yC1IQEXqkhQ==}
 
   javascript-stringify@2.1.0:
     resolution: {integrity: sha512-JVAfqNPTvNq3sB/VHQJAFxN/sPgKnsKrCwyRt15zwNCdrMMJDdcEOdubuy+DuJYYdm0ox1J4uzEuYKkN+9yhVg==}
@@ -9501,11 +9507,11 @@ snapshots:
     transitivePeerDependencies:
       - babel-plugin-macros
 
-  '@vanilla-extract/esbuild-plugin@2.3.13(@types/node@20.9.0)(babel-plugin-macros@3.1.0)(esbuild@0.19.12)(lightningcss@1.25.1)':
+  '@vanilla-extract/esbuild-plugin@2.3.13(@types/node@20.9.0)(babel-plugin-macros@3.1.0)(esbuild@0.21.5)(lightningcss@1.25.1)':
     dependencies:
       '@vanilla-extract/integration': 7.1.12(@types/node@20.9.0)(babel-plugin-macros@3.1.0)(lightningcss@1.25.1)
     optionalDependencies:
-      esbuild: 0.19.12
+      esbuild: 0.21.5
     transitivePeerDependencies:
       - '@types/node'
       - babel-plugin-macros
@@ -9590,11 +9596,11 @@ snapshots:
       - supports-color
       - typescript
 
-  '@wyw-in-js/esbuild@0.5.5(esbuild@0.19.12)(typescript@5.6.2)':
+  '@wyw-in-js/esbuild@0.5.5(esbuild@0.21.5)(typescript@5.6.2)':
     dependencies:
       '@wyw-in-js/shared': 0.5.5
       '@wyw-in-js/transform': 0.5.5(typescript@5.6.2)
-      esbuild: 0.19.12
+      esbuild: 0.21.5
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -10477,10 +10483,10 @@ snapshots:
       string.prototype.trimleft: 2.1.3
       string.prototype.trimright: 2.1.3
 
-  esbuild-plugin-polyfill-node@0.3.0(esbuild@0.19.12):
+  esbuild-plugin-polyfill-node@0.3.0(esbuild@0.21.5):
     dependencies:
       '@jspm/core': 2.1.0
-      esbuild: 0.19.12
+      esbuild: 0.21.5
       import-meta-resolve: 3.1.1
 
   esbuild-register@3.6.0(esbuild@0.19.12):
@@ -11568,6 +11574,8 @@ snapshots:
       '@isaacs/cliui': 8.0.2
     optionalDependencies:
       '@pkgjs/parseargs': 0.11.0
+
+  jaconv@1.0.1: {}
 
   javascript-stringify@2.1.0: {}
 
