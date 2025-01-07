@@ -1,14 +1,9 @@
 import './Footer.module.css'
 
 import { useSetAtom } from 'jotai';
-import React, { useId } from 'react';
+import React, { useId, useRef } from 'react';
 
 import { DialogContentAtom } from '../atoms/DialogContentAtom';
-import { COMPANY } from '../constants/Company';
-import { CONTACT } from '../constants/Contact';
-import { OVERVIEW } from '../constants/Overview';
-import { QUESTION } from '../constants/Question';
-import { TERM } from '../constants/Term';
 import { Color, Space, Typography } from '../styles/variables';
 
 import { Button } from './Button';
@@ -25,7 +20,15 @@ export const FooterButtonContent: React.FC = ( ) => {
 
   const updateDialogContent = useSetAtom(DialogContentAtom);
 
-  const handleRequestToTermDialogOpen = () => {
+  const cache = useRef({company: '', contact: '',overview: '', question: '', term: ''})
+
+  const handleRequestToTermDialogOpen = async() => {
+    let term = cache.current.term
+    if (term === '' ) {
+     const json = (await (await fetch('/server/term')).json() ) as {value: string}
+     cache.current.term = json.value
+     term = cache.current.term
+    }
     updateDialogContent(
       <section className='Footer___Content__styled' aria-labelledby={termDialogA11yId} role="dialog">
         <Text as="h2" color={Color.MONO_100} id={termDialogA11yId} typography={Typography.NORMAL16}>
@@ -33,13 +36,19 @@ export const FooterButtonContent: React.FC = ( ) => {
         </Text>
         <Spacer height={Space * 1} />
         <Text as="p" color={Color.MONO_100} typography={Typography.NORMAL12}>
-          {TERM}
+          {term}
         </Text>
       </section>,
     );
   };
 
-  const handleRequestToContactDialogOpen = () => {
+  const handleRequestToContactDialogOpen = async() => {
+    let contact = cache.current.contact
+    if (contact === '' ) {
+     const json = (await (await fetch('/server/contact')).json() ) as {value: string}
+     cache.current.contact = json.value
+     contact = cache.current.contact
+    }
     updateDialogContent(
       <section className='Footer___Content__styled' aria-labelledby={contactDialogA11yId} role="dialog">
         <Text as="h2" color={Color.MONO_100} id={contactDialogA11yId} typography={Typography.NORMAL16}>
@@ -47,13 +56,19 @@ export const FooterButtonContent: React.FC = ( ) => {
         </Text>
         <Spacer height={Space * 1} />
         <Text as="p" color={Color.MONO_100} typography={Typography.NORMAL12}>
-          {CONTACT}
+          {contact}
         </Text>
       </section>,
     );
   };
 
-  const handleRequestToQuestionDialogOpen = () => {
+  const handleRequestToQuestionDialogOpen = async() => {
+    let question = cache.current.question
+    if (question === '' ) {
+     const json = (await (await fetch('/server/question')).json() ) as {value: string}
+     cache.current.question = json.value
+     question = cache.current.question
+    }
     updateDialogContent(
       <section className='Footer___Content__styled' aria-labelledby={questionDialogA11yId} role="dialog">
         <Text as="h2" color={Color.MONO_100} id={questionDialogA11yId} typography={Typography.NORMAL16}>
@@ -61,13 +76,19 @@ export const FooterButtonContent: React.FC = ( ) => {
         </Text>
         <Spacer height={Space * 1} />
         <Text as="p" color={Color.MONO_100} typography={Typography.NORMAL12}>
-          {QUESTION}
+          {question}
         </Text>
       </section>,
     );
   };
 
-  const handleRequestToCompanyDialogOpen = () => {
+  const handleRequestToCompanyDialogOpen = async() => {
+    let company = cache.current.company
+    if (company === '' ) {
+     const json = (await (await fetch('/server/company')).json() ) as {value: string}
+     cache.current.company = json.value
+     company = cache.current.company
+    }
     updateDialogContent(
       <section className='Footer___Content__styled' aria-labelledby={companyDialogA11yId} role="dialog">
         <Text as="h2" color={Color.MONO_100} id={companyDialogA11yId} typography={Typography.NORMAL16}>
@@ -75,13 +96,19 @@ export const FooterButtonContent: React.FC = ( ) => {
         </Text>
         <Spacer height={Space * 1} />
         <Text as="p" color={Color.MONO_100} typography={Typography.NORMAL12}>
-          {COMPANY}
+          {company}
         </Text>
       </section>,
     );
   };
 
-  const handleRequestToOverviewDialogOpen = () => {
+  const handleRequestToOverviewDialogOpen = async() => {
+    let overview = cache.current.overview
+    if (overview === '' ) {
+     const json = (await (await fetch('/server/overview')).json() ) as {value: string}
+     cache.current.overview = json.value
+     overview = cache.current.overview
+    }
     updateDialogContent(
       <section className='Footer___Content__styled' aria-labelledby={overviewDialogA11yId} role="dialog">
         <Text as="h2" color={Color.MONO_100} id={overviewDialogA11yId} typography={Typography.NORMAL16}>
@@ -89,7 +116,7 @@ export const FooterButtonContent: React.FC = ( ) => {
         </Text>
         <Spacer height={Space * 1} />
         <Text as="p" color={Color.MONO_100} typography={Typography.NORMAL12}>
-          {OVERVIEW}
+          {overview}
         </Text>
       </section>,
     );

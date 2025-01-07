@@ -11,6 +11,7 @@ import { apiApp } from './api';
 import { imageApp } from './image';
 import { ssrApp } from './ssr';
 import { staticApp } from './static';
+import { TermApp } from './terms';
 
 const app = new Hono();
 app.use(secureHeaders());
@@ -29,12 +30,12 @@ app.use(cacheControlMiddleware);
 app.get('/healthz', (c) => {
   return c.body('live', 200);
 });
+app.route('/server', TermApp);
 app.route('/', staticApp);
 app.route('/', imageApp);
 app.route('/', apiApp);
 app.route('/', adminApp);
 app.route('/', ssrApp);
-
 app.onError((cause) => {
   console.error(cause);
 

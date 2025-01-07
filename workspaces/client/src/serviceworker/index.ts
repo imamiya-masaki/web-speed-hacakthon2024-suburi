@@ -1,9 +1,6 @@
 /// <reference types="@types/serviceworker" />
 import PQueue from 'p-queue';
 
-import { jitter } from './jitter';
-import { transformJpegXLToBmp } from './transformJpegXLToBmp';
-
 // ServiceWorker が負荷で落ちないように並列リクエスト数を制限する
 const queue = new PQueue({
   concurrency: 5,

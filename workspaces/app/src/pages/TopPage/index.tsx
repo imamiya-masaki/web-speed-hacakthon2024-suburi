@@ -22,10 +22,12 @@ const TopPage: React.FC = () => {
   const [release, setRelease] = useState<any>({dayOfWeek: "", id: "", books: []});
   const [featureList, setFeatureList] = useState<any>([]);
   const [rankingList, setRankingList] = useState<any>([]);
+  
   useEffect(() => {
     setRelease((window as any).injectData.releases)
     setFeatureList((window as any).injectData.features)
     setRankingList((window as any).injectData.ranking)
+    console.log({rankingList})
     setIsLoaded(true)
   },[])
 
