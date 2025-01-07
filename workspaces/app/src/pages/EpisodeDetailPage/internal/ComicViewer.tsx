@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { useState } from 'react';
 import { useInterval, useUpdate } from 'react-use';
 
@@ -11,7 +10,7 @@ const IMAGE_HEIGHT = 1518;
 const MIN_VIEWER_HEIGHT = 500;
 const MAX_VIEWER_HEIGHT = 650;
 
-const MIN_PAGE_WIDTH = _.floor((MIN_VIEWER_HEIGHT / IMAGE_HEIGHT) * IMAGE_WIDTH);
+const MIN_PAGE_WIDTH = Math.floor((MIN_VIEWER_HEIGHT / IMAGE_HEIGHT) * IMAGE_WIDTH);
 
 
 type Props = {
