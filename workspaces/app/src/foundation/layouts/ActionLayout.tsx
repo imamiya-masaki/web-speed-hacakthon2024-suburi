@@ -14,6 +14,8 @@ type Props = {
 };
 
 export const ActionLayout: React.FC<Props> = ({ leftContent, rightContent }) => {
+
+  
   return (
     <Container>
       <header className='ActionLayout___Header__styled'>

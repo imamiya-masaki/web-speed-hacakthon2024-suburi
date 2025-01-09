@@ -18,6 +18,11 @@ import { useRelease } from '../../features/release/hooks/useRelease';
 import { useFeatureList } from '../../features/feature/hooks/useFeatureList';
 import { useRankingList } from '../../features/ranking/hooks/useRankingList';
 import { getDayOfWeekStr } from '../../lib/date/getDayOfWeekStr';
+import { Container } from '../../foundation/components/Container';
+import { Footer } from '../../foundation/components/Footer';
+import { SWRConfig } from 'swr';
+
+
 const TopPage: React.FC = () => {
   const todayStr = getDayOfWeekStr();
 
@@ -28,64 +33,70 @@ const TopPage: React.FC = () => {
   const rankingA11yId = useId();
   const todayA11yId = useId();
   console.log({release, featureList, rankingList})
+  
   return (
-    <Flex align="flex-start" direction="column" gap={Space * 2} justify="center" pb={Space * 2}>
-      <Box as="header" maxWidth="100%" width="100%">
-        <CoverSection />
-      </Box>
-      <Box as="main" maxWidth="100%" width="100%">
-        <Box aria-labelledby={pickupA11yId} as="section" maxWidth="100%" mt={16} width="100%">
-          <Text as="h2" color={Color.MONO_100} id={pickupA11yId} typography={Typography.NORMAL20} weight="bold">
-            ピックアップ
-          </Text>
-          <Spacer height={Space * 2} />
-          <Box maxWidth="100%" overflowX="scroll" overflowY="hidden">
-              <Flex align="stretch" direction="row" gap={Space * 2} justify="flex-start" className='toppage-pickup'>
-                <Suspense fallback={null}>
-                  {featureList?.map((feature: any) => (
-                    <FeatureCard key={feature.id} bookId={feature.book.id} insertBook={feature.book}/>
-                  ))}
-                </Suspense>
-              </Flex>
-          </Box>
-        </Box>
-
-        <Spacer height={Space * 2} />
-
-        <Box aria-labelledby={rankingA11yId} as="section" maxWidth="100%" width="100%">
-          <Text as="h2" color={Color.MONO_100} id={rankingA11yId} typography={Typography.NORMAL20} weight="bold">
-            ランキング
-          </Text>
-          <Spacer height={Space * 2} />
-          <Box maxWidth="100%" overflowX="hidden" overflowY="hidden">
-              <Flex align="center" as="ul" direction="column" justify="center" className={'toppage-ranking'}>
-              <Suspense fallback={null}>
-                {rankingList?.map((ranking: any) => (
-                  <RankingCard key={ranking.id} bookId={ranking.book.id} insertBook={ranking.book}/>
-                ))}
-              </Suspense>
-              </Flex>
-          </Box>
-        </Box>
-
-        <Spacer height={Space * 2} />
-          <Box aria-labelledby={todayA11yId} as="section" maxWidth="100%" width="100%">
-            <Text as="h2" color={Color.MONO_100} id={todayA11yId} typography={Typography.NORMAL20} weight="bold">
-              本日更新
-            </Text>
-            <Spacer height={Space * 2} />
-            <Box maxWidth="100%" overflowX="scroll" overflowY="hidden">
-              <Flex align="stretch" gap={Space * 2} justify="flex-start" className='toppage-release'>
-                <Suspense fallback={null}>
-                  {release?.books.map((book: any) => (
-                    <BookCard key={book.id} bookId={book.id} insertBook={book}/>
-                  ))}
-                </Suspense>
-              </Flex>
+    <Container>
+        <div className='CommonLayout___Content__styled'>
+          <Flex align="flex-start" direction="column" gap={Space * 2} justify="center" pb={Space * 2}>
+            <Box as="header" maxWidth="100%" width="100%">
+              <CoverSection />
             </Box>
-          </Box>
-      </Box>
-    </Flex>
+              <Box as="main" maxWidth="100%" width="100%">
+                <Box aria-labelledby={pickupA11yId} as="section" maxWidth="100%" mt={16} width="100%">
+                  <Text as="h2" color={Color.MONO_100} id={pickupA11yId} typography={Typography.NORMAL20} weight="bold">
+                    ピックアップ
+                  </Text>
+                  <Spacer height={Space * 2} />
+                  <Box maxWidth="100%" overflowX="scroll" overflowY="hidden">
+                      <Flex align="stretch" direction="row" gap={Space * 2} justify="flex-start" className='toppage-pickup'>
+                        <Suspense fallback={null}>
+                          {featureList?.map((feature: any) => (
+                            <FeatureCard key={feature.id} bookId={feature.book.id} insertBook={feature.book}/>
+                          ))}
+                        </Suspense>
+                      </Flex>
+                  </Box>
+                </Box>
+
+                <Spacer height={Space * 2} />
+
+                <Box aria-labelledby={rankingA11yId} as="section" maxWidth="100%" width="100%">
+                  <Text as="h2" color={Color.MONO_100} id={rankingA11yId} typography={Typography.NORMAL20} weight="bold">
+                    ランキング
+                  </Text>
+                  <Spacer height={Space * 2} />
+                  <Box maxWidth="100%" overflowX="hidden" overflowY="hidden">
+                      <Flex align="center" as="ul" direction="column" justify="center" className={'toppage-ranking'}>
+                      <Suspense fallback={null}>
+                        {rankingList?.map((ranking: any) => (
+                          <RankingCard key={ranking.id} bookId={ranking.book.id} insertBook={ranking.book}/>
+                        ))}
+                      </Suspense>
+                      </Flex>
+                  </Box>
+                </Box>
+
+                <Spacer height={Space * 2} />
+                  <Box aria-labelledby={todayA11yId} as="section" maxWidth="100%" width="100%">
+                    <Text as="h2" color={Color.MONO_100} id={todayA11yId} typography={Typography.NORMAL20} weight="bold">
+                      本日更新
+                    </Text>
+                    <Spacer height={Space * 2} />
+                    <Box maxWidth="100%" overflowX="scroll" overflowY="hidden">
+                      <Flex align="stretch" gap={Space * 2} justify="flex-start" className='toppage-release'>
+                        <Suspense fallback={null}>
+                          {release?.books.map((book: any) => (
+                            <BookCard key={book.id} bookId={book.id} insertBook={book}/>
+                          ))}
+                        </Suspense>
+                      </Flex>
+                    </Box>
+                  </Box>
+              </Box>
+          </Flex>
+      </div>
+      <Footer />
+    </Container>
   );
 };
 

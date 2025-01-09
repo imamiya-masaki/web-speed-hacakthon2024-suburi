@@ -1,9 +1,8 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Link } from './foundation/components/Link';
 import { Text } from './foundation/components/Text';
 import { ActionLayout } from './foundation/layouts/ActionLayout';
-import { CommonLayout } from './foundation/layouts/CommonLayout';
 import { Color, Space, Typography } from './foundation/styles/variables';
 import { AuthorDetailPage } from './pages/AuthorDetailPage';
 import { BookDetailPage } from './pages/BookDetailPage';
@@ -33,12 +32,24 @@ const _BackToTopButton: React.FC<LinkProps> = ({ style, ...props }) => {
   return <Link {...props} style={combinedStyle} />;
 };
 
+
 export const Router: React.FC = () => {
+
+  useEffect(()=> {
+    const newrelic = (window as any).newrelic as any 
+    if (newrelic && newrelic.setCustomAttribute) {
+      // 物理的な画面サイズを送る場合
+      newrelic.setCustomAttribute('performanceInfo', JSON.stringify({
+        width: window.screen.width,
+        height: window.screen.height,
+        url: window.location.href
+      }));
+    }
+  },[])
+
   return (
     <Routes>
-      <Route element={<CommonLayout />} path={'/'}>
-        <Route element={<TopPage />} path={''} />
-      </Route>
+      <Route element={<TopPage />} path={''} />
       <Route
         element={
           <ActionLayout

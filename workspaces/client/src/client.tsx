@@ -46,10 +46,10 @@ const main = async () => {
       ReactDOM.hydrateRoot(
         rootElement,
         <SWRConfig value={{ revalidateIfStale: true, revalidateOnFocus: false, revalidateOnReconnect: false, fallback: injectData }}>
-          <BrowserRouter>
-            <ClientApp />
+        <BrowserRouter>
+          <ClientApp />
           </BrowserRouter>
-        </SWRConfig>,
+          </SWRConfig>
       );
   } catch (error) {
     console.error(error);

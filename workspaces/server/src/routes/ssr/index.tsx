@@ -12,9 +12,11 @@ import { rankingApiClient } from '@wsh-2024/app/src/features/ranking/apiClient/r
 import { releaseApiClient } from '@wsh-2024/app/src/features/release/apiClient/releaseApiClient';
 // import { ClientApp } from '@wsh-2024/app/src/index';
 import { getDayOfWeekStr } from '@wsh-2024/app/src/lib/date/getDayOfWeekStr';
+import { StaticRouter } from 'react-router-dom/server';
+import { ClientApp } from '@wsh-2024/app/src/index';
 
 import { HEADER_HTML_PATH } from '../../constants/paths';
-import { unstable_serialize } from 'swr';
+import { SWRConfig, unstable_serialize } from 'swr';
 
 const app = new Hono();
 
@@ -76,6 +78,9 @@ app.get('*', async (c) => {
         <head dangerouslySetInnerHTML={{ __html: header }}/>
         <body>
           <div id="root">
+          <StaticRouter location={c.req.path}>
+          <ClientApp />
+        </StaticRouter>
           </div>
           </body>
         </html>
