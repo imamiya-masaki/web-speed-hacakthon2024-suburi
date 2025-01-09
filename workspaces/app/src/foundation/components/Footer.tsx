@@ -6,7 +6,7 @@ import { Color, Space } from '../styles/variables';
 
 import { Box } from './Box';
 import { Flex } from './Flex';
-import { Button } from '@mui/material';
+import { Button } from './Button';
 
 const FooterButtonContent = lazy(() => import('./FooterButtonContent'));
 
