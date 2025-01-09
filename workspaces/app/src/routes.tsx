@@ -10,7 +10,6 @@ import { BookDetailPage } from './pages/BookDetailPage';
 import { EpisodeDetailPage } from './pages/EpisodeDetailPage';
 import { SearchPage } from './pages/SearchPage';
 import { TopPage } from './pages/TopPage';
-import { ArrowBack } from '@mui/icons-material';
 
 type LinkProps = Parameters<typeof Link>[0];
 
@@ -45,7 +44,7 @@ export const Router: React.FC = () => {
           <ActionLayout
             leftContent={
               <_BackToTopButton href={'/'}>
-                <ArrowBack style={{color: Color.MONO_100, height: 32, width: 32}} />
+                <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#202020"><path d="m287-446.67 240 240L480-160 160-480l320-320 47 46.67-240 240h513v66.66H287Z" style={{color: Color.MONO_100, height: 32, width: 32}}/></svg>
                 <Text color={Color.MONO_100} typography={Typography.NORMAL16} weight="bold">
                   トップへ戻る
                 </Text>

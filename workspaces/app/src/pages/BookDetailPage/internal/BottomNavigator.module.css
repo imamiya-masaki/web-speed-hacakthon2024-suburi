@@ -31,3 +31,17 @@
   flex-shrink: 0;
 
 }
+
+/* ---------------------
+   ここからアニメーションクラス
+   --------------------- */
+   .BottomNavigator___SlideIn {
+    transform: translateY(100%);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .BottomNavigator___SlideInActive {
+    transform: translateY(0);
+  }
+  
+  /* 他に必要なスタイルがあれば適宜追加 */

@@ -11,7 +11,6 @@ import { Text } from '../../../foundation/components/Text';
 import { useImage } from '../../../foundation/hooks/useImage';
 import { Color, Space, Typography } from '../../../foundation/styles/variables';
 import { useBook } from '../../book/hooks/useBook';
-import { NavigateNext } from '@mui/icons-material';
 import { Book } from '../../../lib/type';
 
 type Props = {
@@ -71,7 +70,7 @@ const RankingCard: React.FC<Props> = ({ bookId, insertBook }) => {
               <Text color={Color.Secondary} typography={Typography.NORMAL14} weight="bold">
                 この漫画を読む
               </Text>
-              <NavigateNext style={{color: Color.Secondary, height: 32, width: 32}} />
+              <svg height={32} width={32} fill="#DE911D" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="NavigateNextIcon" style={{color: Color.Secondary, height: 32, width: 32}}><path d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg>
             </Flex>
           </Box>
         </Flex>

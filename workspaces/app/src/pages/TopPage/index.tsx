@@ -23,11 +23,15 @@ const TopPage: React.FC = () => {
   const [rankingList, setRankingList] = useState<any>([]);
   
   useEffect(() => {
+    try {
     setRelease((window as any).injectData.releases)
     setFeatureList((window as any).injectData.features)
     setRankingList((window as any).injectData.ranking)
     console.log({rankingList})
     setIsLoaded(true)
+    } catch (error) {
+      console.error({error})
+    }
   },[])
 
   const pickupA11yId = useId();

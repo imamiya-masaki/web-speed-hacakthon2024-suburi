@@ -75,7 +75,7 @@ app.get('*', async (c) => {
           <div id="root">
           <StaticRouter location={c.req.path}>
             <ClientApp />
-          </StaticRouter>,
+          </StaticRouter>
           </div>
           </body>
         </html>
