@@ -15,7 +15,7 @@ export const Image: React.FC<Props> = ({
   height,
   objectFit,
   width,
-  loading = 'eager',
+  loading = 'lazy',
   ...rest
 }) => {
   // スタイルオブジェクトの構築

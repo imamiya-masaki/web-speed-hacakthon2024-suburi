@@ -24,17 +24,17 @@ async function createInjectDataStr(): Promise<Record<string, unknown>> {
   {
     const dayOfWeek = getDayOfWeekStr();
     const releases = await releaseApiClient.fetch({ params: { dayOfWeek } });
-    json[unstable_serialize(releaseApiClient.fetch$$key({ params: { dayOfWeek } }))] = {...releases, "SSR": true};
+    json[unstable_serialize(releaseApiClient.fetch$$key({ params: { dayOfWeek } }))] = {...releases};
   }
 
   {
     const features = await featureApiClient.fetchList({ query: {} });
-    json[unstable_serialize(featureApiClient.fetchList$$key({ query: {} }))] = features;
+    json[unstable_serialize(featureApiClient.fetchList$$key({ query: {} }))] = [...features];
   }
 
   {
     const ranking = await rankingApiClient.fetchList({ query: {} });
-    json[unstable_serialize(rankingApiClient.fetchList$$key({ query: {} }))] = ranking;
+    json[unstable_serialize(rankingApiClient.fetchList$$key({ query: {} }))] = [...ranking];
   }
 
   return json;
@@ -84,7 +84,8 @@ app.get('*', async (c) => {
     console.log('end', performance.now())
     return new Response(stream, {
       headers: { 'content-type': 'text/html',
-        'Link': '<https://webspeed.anpanpass.com/client.global.js>; rel=preload; as=script'
+        'Link': '<https://webspeed.anpanpass.com/client.global.js>; rel=preload; as=script',
+        'Cache-Control': 'no-store'
        },
     });
   } catch (cause) {
@@ -96,3 +97,4 @@ app.get('*', async (c) => {
 });
 
 export { app as ssrApp };
+  // c.res.headers.append('Cache-Control', 'no-store');

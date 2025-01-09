@@ -4,5 +4,5 @@ import { rankingApiClient } from '../apiClient/rankingApiClient';
 
 export function useRankingList(...[options]: Parameters<typeof rankingApiClient.fetchList>) {
   const key = unstable_serialize(rankingApiClient.fetchList$$key(options)) as any
-  return useSWR(key, rankingApiClient.fetchList);
+  return useSWR(key, () => {});
 }

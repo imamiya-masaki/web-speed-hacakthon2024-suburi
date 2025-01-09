@@ -1,7 +1,7 @@
 import './index.css'
 
 // import moment from 'moment-timezone';
-import { useId, useState, useEffect } from 'react';
+import { useId, useState, useEffect, Suspense } from 'react';
 
 import { BookCard } from '../../features/book/components/BookCard';
 import { FeatureCard } from '../../features/feature/components/FeatureCard';
@@ -27,7 +27,7 @@ const TopPage: React.FC = () => {
   const pickupA11yId = useId();
   const rankingA11yId = useId();
   const todayA11yId = useId();
-
+  console.log({release, featureList, rankingList})
   return (
     <Flex align="flex-start" direction="column" gap={Space * 2} justify="center" pb={Space * 2}>
       <Box as="header" maxWidth="100%" width="100%">
@@ -41,9 +41,11 @@ const TopPage: React.FC = () => {
           <Spacer height={Space * 2} />
           <Box maxWidth="100%" overflowX="scroll" overflowY="hidden">
               <Flex align="stretch" direction="row" gap={Space * 2} justify="flex-start" className='toppage-pickup'>
-                {featureList?.map((feature: any) => (
-                  <FeatureCard key={feature.id} bookId={feature.book.id} insertBook={feature.book}/>
-                ))}
+                <Suspense fallback={null}>
+                  {featureList?.map((feature: any) => (
+                    <FeatureCard key={feature.id} bookId={feature.book.id} insertBook={feature.book}/>
+                  ))}
+                </Suspense>
               </Flex>
           </Box>
         </Box>
@@ -57,9 +59,11 @@ const TopPage: React.FC = () => {
           <Spacer height={Space * 2} />
           <Box maxWidth="100%" overflowX="hidden" overflowY="hidden">
               <Flex align="center" as="ul" direction="column" justify="center" className={'toppage-ranking'}>
+              <Suspense fallback={null}>
                 {rankingList?.map((ranking: any) => (
                   <RankingCard key={ranking.id} bookId={ranking.book.id} insertBook={ranking.book}/>
                 ))}
+              </Suspense>
               </Flex>
           </Box>
         </Box>
@@ -72,9 +76,11 @@ const TopPage: React.FC = () => {
             <Spacer height={Space * 2} />
             <Box maxWidth="100%" overflowX="scroll" overflowY="hidden">
               <Flex align="stretch" gap={Space * 2} justify="flex-start" className='toppage-release'>
-                {release?.books.map((book: any) => (
-                  <BookCard key={book.id} bookId={book.id} insertBook={book}/>
-                ))}
+                <Suspense fallback={null}>
+                  {release?.books.map((book: any) => (
+                    <BookCard key={book.id} bookId={book.id} insertBook={book}/>
+                  ))}
+                </Suspense>
               </Flex>
             </Box>
           </Box>
