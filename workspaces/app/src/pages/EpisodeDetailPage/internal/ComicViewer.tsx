@@ -34,7 +34,7 @@ export const ComicViewer: React.FC<Props> = ({ episodeId }) => {
   // 1ページの高さの候補
   const candidatePageHeight = (candidatePageWidth / IMAGE_WIDTH) * IMAGE_HEIGHT;
   // ビュアーの高さ
-  const viewerHeight = _.clamp(candidatePageHeight, MIN_VIEWER_HEIGHT, MAX_VIEWER_HEIGHT);
+  const viewerHeight = clamp(candidatePageHeight, MIN_VIEWER_HEIGHT, MAX_VIEWER_HEIGHT);
 
   return (
     <div  style={{position: "relative"}} ref={ref}>
@@ -44,3 +44,13 @@ export const ComicViewer: React.FC<Props> = ({ episodeId }) => {
     </div>
   );
 };
+
+
+function clamp(number:number, lower:number, upper:number) {
+  // lower と upper が逆転している場合は入れ替える
+  if (lower > upper) {
+    [lower, upper] = [upper, lower];
+  }
+  // number を lower と upper の範囲内に制限する
+  return Math.min(Math.max(number, lower), upper);
+}
