@@ -77,7 +77,7 @@ export default defineConfig(async (): Promise<Options[]> => {
             fs: true,
             path: true,
           },
-        }),
+        }) as any,
       ],
       format: 'iife',
       loader: {

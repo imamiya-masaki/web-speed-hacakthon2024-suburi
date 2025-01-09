@@ -1,9 +1,8 @@
-import { useEffect } from 'react';
+import useSWR, {unstable_serialize} from 'swr';
 
-export function useRankingList() { 
-  let data: any[]  = [];
-  useEffect(() => {
-    data = (window as any).injectData.ranking
-  },[])
-  return data;
+import { rankingApiClient } from '../apiClient/rankingApiClient';
+
+export function useRankingList(...[options]: Parameters<typeof rankingApiClient.fetchList>) {
+  const key = unstable_serialize(rankingApiClient.fetchList$$key(options)) as any
+  return useSWR(key, rankingApiClient.fetchList);
 }

@@ -1,9 +1,8 @@
-import { useEffect } from 'react';
+import useSWR, { unstable_serialize } from 'swr';
 
-export function useFeatureList() {
-  let data: any[] = []
-  useEffect(() => {
-    data = (window as any).injectData.features
-  },[])
-  return data;
+import { featureApiClient } from '../apiClient/featureApiClient';
+
+export function useFeatureList(...[options]: Parameters<typeof featureApiClient.fetchList>) {
+  const key = unstable_serialize(featureApiClient.fetchList$$key(options)) as any
+  return useSWR(key, featureApiClient.fetchList);
 }

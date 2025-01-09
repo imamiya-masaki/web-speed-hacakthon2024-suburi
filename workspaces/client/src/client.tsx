@@ -16,7 +16,6 @@ const data = async () => {
         const injectData = JSON.parse(injectDataScript.textContent || '{}');
         
         // 取得したデータを使用
-        console.log('Injected Data:', injectData);
         (window as any).injectData = injectData
         // 例: グローバルな状態管理にセットする
         // store.dispatch(setInitialData(injectData));
@@ -42,9 +41,11 @@ const main = async () => {
         console.error('Root element not found');
         return;
       }
+      const injectDataScript =  document.getElementById('inject-data');
+      const injectData = JSON.parse(injectDataScript?.textContent || '{}') as Record<string, string>;
       ReactDOM.hydrateRoot(
         rootElement,
-        <SWRConfig value={{ revalidateIfStale: true, revalidateOnFocus: false, revalidateOnReconnect: false }}>
+        <SWRConfig value={{ revalidateIfStale: true, revalidateOnFocus: false, revalidateOnReconnect: false, fallback: injectData }}>
           <BrowserRouter>
             <ClientApp />
           </BrowserRouter>

@@ -3,39 +3,42 @@ import fs from 'fs/promises';
 import { Hono } from 'hono';
 import { HTTPException } from 'hono/http-exception';
 import jsesc from 'jsesc';
-import moment from 'moment-timezone';
+// import moment from 'moment-timezone';
 import { renderToReadableStream } from 'react-dom/server.browser';
-import { StaticRouter } from 'react-router-dom/server';
+// import { StaticRouter } from 'react-router-dom/server';
 
 import { featureApiClient } from '@wsh-2024/app/src/features/feature/apiClient/featureApiClient';
 import { rankingApiClient } from '@wsh-2024/app/src/features/ranking/apiClient/rankingApiClient';
 import { releaseApiClient } from '@wsh-2024/app/src/features/release/apiClient/releaseApiClient';
-import { ClientApp } from '@wsh-2024/app/src/index';
+// import { ClientApp } from '@wsh-2024/app/src/index';
 import { getDayOfWeekStr } from '@wsh-2024/app/src/lib/date/getDayOfWeekStr';
 
 import { HEADER_HTML_PATH } from '../../constants/paths';
+import { unstable_serialize } from 'swr';
 
 const app = new Hono();
 
 async function createInjectDataStr(): Promise<Record<string, unknown>> {
   const json: Record<string, unknown> = {};
+
   {
-    const dayOfWeek = getDayOfWeekStr(moment());
+    const dayOfWeek = getDayOfWeekStr();
     const releases = await releaseApiClient.fetch({ params: { dayOfWeek } });
-    json["releases"] = releases;
+    json[unstable_serialize(releaseApiClient.fetch$$key({ params: { dayOfWeek } }))] = {...releases, "SSR": true};
   }
+
   {
     const features = await featureApiClient.fetchList({ query: {} });
-    json["features"] = features;
+    json[unstable_serialize(featureApiClient.fetchList$$key({ query: {} }))] = features;
   }
+
   {
     const ranking = await rankingApiClient.fetchList({ query: {} });
-    json["ranking"] = ranking;
+    json[unstable_serialize(rankingApiClient.fetchList$$key({ query: {} }))] = ranking;
   }
 
   return json;
 }
-
 const createHeaderHTML = async({
   injectData}: {
     injectData: Record<string, unknown>;
@@ -73,9 +76,6 @@ app.get('*', async (c) => {
         <head dangerouslySetInnerHTML={{ __html: header }}/>
         <body>
           <div id="root">
-          <StaticRouter location={c.req.path}>
-            <ClientApp />
-          </StaticRouter>
           </div>
           </body>
         </html>
