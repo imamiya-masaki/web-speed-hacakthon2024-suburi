@@ -6,7 +6,8 @@ const urlsToCache = [
   '/assets/css/heroimage.css',
   '/assets/css/reset.css',
   '/assets/cyber-toon.svg',
-  '/assets/heroimage-2-512.webp',
+  // '/assets/heroimage-2-512.webp',
+  '/assets/heroimage-2-430.webp',
   '/client.css',
 ];
 

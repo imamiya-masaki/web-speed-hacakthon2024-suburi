@@ -5,6 +5,13 @@ export const HeroImage: React.FC = () => {
   return (
     <div className="HeroImage___Wrapper__styled">
       <picture>
+      <source
+          media="(max-width: 430px)"
+          srcSet="
+            assets/heroimage-1-430.webp 1x,
+            assets/heroimage-2-430.webp 2x
+          "
+        />
         <source
           media="(max-width: 512px)"
           srcSet="
