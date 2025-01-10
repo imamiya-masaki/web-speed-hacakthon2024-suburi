@@ -17,6 +17,7 @@ import { ClientApp } from '@wsh-2024/app/src/index';
 
 import { HEADER_HTML_PATH } from '../../constants/paths';
 import { unstable_serialize } from 'swr';
+import { CoverSection } from '@wsh-2024/app/src/pages/TopPage/internal/CoverSection';
 
 const app = new Hono();
 
@@ -66,7 +67,7 @@ const createHeaderHTML = async({
   return content;
 }
 
-app.get('*', async (c) => {
+app.get('/', async (c) => {
   console.log('SSR')
   console.log('start', performance.now())
   const injectData = await createInjectDataStr();
@@ -79,8 +80,8 @@ app.get('*', async (c) => {
         <body>
           <div id="root">
           <StaticRouter location={c.req.path}>
-          <ClientApp />
-        </StaticRouter>
+            <ClientApp />
+          </StaticRouter>
           </div>
           </body>
         </html>
