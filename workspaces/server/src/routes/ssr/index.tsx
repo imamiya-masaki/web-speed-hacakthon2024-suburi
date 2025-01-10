@@ -16,7 +16,7 @@ import { StaticRouter } from 'react-router-dom/server';
 import { ClientApp } from '@wsh-2024/app/src/index';
 
 import { HEADER_HTML_PATH } from '../../constants/paths';
-import { SWRConfig, unstable_serialize } from 'swr';
+import { unstable_serialize } from 'swr';
 
 const app = new Hono();
 

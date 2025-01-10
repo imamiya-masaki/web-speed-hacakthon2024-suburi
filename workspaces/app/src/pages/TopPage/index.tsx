@@ -20,19 +20,47 @@ import { useRankingList } from '../../features/ranking/hooks/useRankingList';
 import { getDayOfWeekStr } from '../../lib/date/getDayOfWeekStr';
 import { Container } from '../../foundation/components/Container';
 import { Footer } from '../../foundation/components/Footer';
-import { SWRConfig } from 'swr';
+import { Book } from '../../lib/type';
 
+
+const FeatureList = () => {
+  const { data: featureList } = useFeatureList({ query: {} });
+  return <Flex align="stretch" direction="row" gap={Space * 2} justify="flex-start" className='toppage-pickup'>
+    {featureList?.map((feature: any) => (
+        <FeatureCard key={feature.id} bookId={feature.book.id} insertBook={feature.book}/>
+      ))
+    }</Flex>
+}
+
+const RankingList = () => {
+  const { data: rankingList } = useRankingList({ query: {} });
+  return <Flex align="center" as="ul" direction="column" justify="center" className={'toppage-ranking'}>
+    {rankingList?.map((ranking: any) => (
+         <RankingCard key={ranking.id} bookId={ranking.book.id} insertBook={ranking.book}/>
+      ))
+    }</Flex>
+}
+
+const ReleaseList = () => {
+  const todayStr = getDayOfWeekStr();
+  const { data: release } = useRelease({ params: { dayOfWeek: todayStr } });
+  return (<Flex align="stretch" gap={Space * 2} justify="flex-start" className='toppage-release'>
+  <Suspense fallback={null}>
+    {release?.books.map((book: any) => (
+      <BookCard key={book.id} bookId={book.id} insertBook={book}/>
+    ))}
+  </Suspense>
+</Flex>)
+}
 
 const TopPage: React.FC = () => {
   const todayStr = getDayOfWeekStr();
 
   const { data: release } = useRelease({ params: { dayOfWeek: todayStr } });
-  const { data: featureList } = useFeatureList({ query: {} });
-  const { data: rankingList } = useRankingList({ query: {} });
   const pickupA11yId = useId();
   const rankingA11yId = useId();
   const todayA11yId = useId();
-  console.log({release, featureList, rankingList})
+  console.log({release})
   
   return (
     <Container>
@@ -48,13 +76,9 @@ const TopPage: React.FC = () => {
                   </Text>
                   <Spacer height={Space * 2} />
                   <Box maxWidth="100%" overflowX="scroll" overflowY="hidden">
-                      <Flex align="stretch" direction="row" gap={Space * 2} justify="flex-start" className='toppage-pickup'>
-                        <Suspense fallback={null}>
-                          {featureList?.map((feature: any) => (
-                            <FeatureCard key={feature.id} bookId={feature.book.id} insertBook={feature.book}/>
-                          ))}
-                        </Suspense>
-                      </Flex>
+                    <Suspense>
+                      <FeatureList/>
+                    </Suspense>
                   </Box>
                 </Box>
 
@@ -66,13 +90,9 @@ const TopPage: React.FC = () => {
                   </Text>
                   <Spacer height={Space * 2} />
                   <Box maxWidth="100%" overflowX="hidden" overflowY="hidden">
-                      <Flex align="center" as="ul" direction="column" justify="center" className={'toppage-ranking'}>
                       <Suspense fallback={null}>
-                        {rankingList?.map((ranking: any) => (
-                          <RankingCard key={ranking.id} bookId={ranking.book.id} insertBook={ranking.book}/>
-                        ))}
+                        <RankingList />
                       </Suspense>
-                      </Flex>
                   </Box>
                 </Box>
 
@@ -83,13 +103,9 @@ const TopPage: React.FC = () => {
                     </Text>
                     <Spacer height={Space * 2} />
                     <Box maxWidth="100%" overflowX="scroll" overflowY="hidden">
-                      <Flex align="stretch" gap={Space * 2} justify="flex-start" className='toppage-release'>
-                        <Suspense fallback={null}>
-                          {release?.books.map((book: any) => (
-                            <BookCard key={book.id} bookId={book.id} insertBook={book}/>
-                          ))}
-                        </Suspense>
-                      </Flex>
+                    <Suspense fallback={null}>
+                      <ReleaseList />
+                    </Suspense>
                     </Box>
                   </Box>
               </Box>
