@@ -22,6 +22,7 @@ export default defineConfig(async (): Promise<Options[]> => {
       bundle: true,
       entry: {
         client: path.resolve(PACKAGE_DIR, './src/client.tsx'),
+        // toppage: path.resolve(PACKAGE_DIR, './src/pages/TopPage/index.tsx'),
         serviceworker: path.resolve(PACKAGE_DIR, './src/serviceworker/index.ts'),
       },
       env: {
@@ -37,8 +38,6 @@ export default defineConfig(async (): Promise<Options[]> => {
         };
         options.publicPath = '/';
       },
-      esbuildPlugins: [
-      ],
       format: 'iife',
       loader: {
         '.json?file': 'file',

@@ -52,7 +52,7 @@ const createHeaderHTML = async({
   } catch (e) {
     console.log('createHTML:error', e)
   }
-  const content = htmlContent
+  let content = htmlContent
     // .replaceAll('<div id="root"></div>', `<div id="root">${body}</div>`)
     .replaceAll(
       '<script id="inject-data" type="application/json"></script>',
@@ -64,6 +64,11 @@ const createHeaderHTML = async({
         })}
       </script>`
     );
+
+  //  content = htmlContent.replaceAll(
+  //   '<script type="text/javascript" src="/client.global.js" fetchpriority="high" defer></script>',
+    
+  //  )
   return content;
 }
 

@@ -4,7 +4,7 @@ import { pnpmWorkspaceRootSync as findWorkspaceDirSync } from '@node-kit/pnpm-wo
 import findPackageDir from 'pkg-dir';
 
 const WORKSPACE_DIR = findWorkspaceDirSync(process.cwd())!;
-const PACKAGE_DIR = findPackageDir.sync()!;
+export const PACKAGE_DIR = findPackageDir.sync()!;
 
 export const DATABASE_PATH = path.resolve(PACKAGE_DIR, './dist/database.sqlite');
 
@@ -17,4 +17,8 @@ export const CLIENT_STATIC_PATH = path.resolve(WORKSPACE_DIR, './workspaces/clie
 export const INDEX_HTML_PATH = path.resolve(PACKAGE_DIR, './index.html');
 export const ADMIN_HTML_PATH = path.resolve(PACKAGE_DIR, './admin.html');
 export const HEADER_HTML_PATH = path.resolve(PACKAGE_DIR, './pipeline-header.html');
-export const BODY_HTML_PATH = path.resolve(PACKAGE_DIR, './pipeline.html');
+
+export const targetFiles = () => {
+  
+}
+
