@@ -6,7 +6,7 @@ import jsesc from 'jsesc';
 // import moment from 'moment-timezone';
 import { renderToReadableStream } from 'react-dom/server.browser';
 // import { StaticRouter } from 'react-router-dom/server';
-
+import {join as pathJoin} from 'path';
 import { featureApiClient } from '@wsh-2024/app/src/features/feature/apiClient/featureApiClient';
 import { rankingApiClient } from '@wsh-2024/app/src/features/ranking/apiClient/rankingApiClient';
 import { releaseApiClient } from '@wsh-2024/app/src/features/release/apiClient/releaseApiClient';
@@ -15,9 +15,10 @@ import { getDayOfWeekStr } from '@wsh-2024/app/src/lib/date/getDayOfWeekStr';
 import { StaticRouter } from 'react-router-dom/server';
 import { ClientApp } from '@wsh-2024/app/src/index';
 
-import { HEADER_HTML_PATH } from '../../constants/paths';
+import { HEADER_HTML_PATH, CLIENT_STATIC_PATH } from '../../constants/paths';
 import { unstable_serialize } from 'swr';
 import { CoverSection } from '@wsh-2024/app/src/pages/TopPage/internal/CoverSection';
+import { CLIENT_PUBLIC_FILES_PATH } from 'next/dist/shared/lib/constants';
 
 const app = new Hono();
 
@@ -65,10 +66,18 @@ const createHeaderHTML = async({
       </script>`
     );
 
-  //  content = htmlContent.replaceAll(
-  //   '<script type="text/javascript" src="/client.global.js" fetchpriority="high" defer></script>',
-    
-  //  )
+  // cssインライン化
+
+  // <link href="/assets/css/heroimage.css" rel="stylesheet" />
+  // <link href="/assets/css/reset.css" rel="stylesheet" />
+  // <link href="/client.css" rel="stylesheet">
+  const resetCSS = await fs.readFile(pathJoin(CLIENT_STATIC_PATH, './assets/css/reset.css'), 'utf-8')
+  const clientCSS = await fs.readFile(pathJoin(CLIENT_STATIC_PATH, './client.css'), 'utf-8')
+   content = content.replaceAll(
+    '<link href="/assets/css/reset.css" rel="stylesheet" />',
+    `<style>${resetCSS}</style>`
+   ).replaceAll('<link href="/client.css" rel="stylesheet" />', `<style>${clientCSS}</style>`);
+
   return content;
 }
 
