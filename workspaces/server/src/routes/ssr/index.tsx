@@ -102,5 +102,37 @@ app.get('/', async (c) => {
   }
 });
 
+
+app.get('*', async (c) => {
+  const header = await createHeaderHTML({injectData:{}})
+  try {
+    const stream = await renderToReadableStream(
+      <html >
+        <head dangerouslySetInnerHTML={{ __html: header }}/>
+        <body>
+          <div id="root">
+          <StaticRouter location={c.req.path}>
+            <ClientApp />
+          </StaticRouter>
+          </div>
+          </body>
+        </html>
+    );
+
+    console.log('end', performance.now())
+    return new Response(stream, {
+      headers: { 'content-type': 'text/html',
+        'Link': '<https://webspeed.anpanpass.com/client.global.js>; rel=preload; as=script',
+        'Cache-Control': 'no-store'
+       },
+    });
+  } catch (cause) {
+    // console.log({cause})
+    throw new HTTPException(500, { cause, message: 'SSR error.' });
+  } finally {
+    // sheet.seal();
+  }
+});
+
 export { app as ssrApp };
   // c.res.headers.append('Cache-Control', 'no-store');
