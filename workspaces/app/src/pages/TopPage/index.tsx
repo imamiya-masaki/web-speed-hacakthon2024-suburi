@@ -71,7 +71,6 @@ const ReleaseList = () => {
     startTransition(() => {
     try {
       const key = unstable_serialize(releaseApiClient.fetch$$key({params:{ dayOfWeek: todayStr }}));
-      console.log('key', key,(window as any).injectData, (window as any).injectData[key])
       setRelease((window as any).injectData[key])
     } catch (error) {
       console.error({error})
@@ -89,7 +88,6 @@ const ReleaseList = () => {
 }
 
 const TopPage: React.FC = () => {
-  const todayStr = getDayOfWeekStr();
 
   const pickupA11yId = "pickupA11yId";
   const rankingA11yId = "rankingA11yId";
@@ -97,11 +95,11 @@ const TopPage: React.FC = () => {
   
   return (
     <Container>
+        <Box as="header" maxWidth="100%" width="100%">
+          <CoverSection />
+        </Box>
         <div className='CommonLayout___Content__styled'>
           <Flex align="flex-start" direction="column" gap={Space * 2} justify="center" pb={Space * 2}>
-            <Box as="header" maxWidth="100%" width="100%">
-              <CoverSection />
-            </Box>
               <Box as="main" maxWidth="100%" width="100%">
                 <Box aria-labelledby={pickupA11yId} as="section" maxWidth="100%" mt={16} width="100%">
                   <Text as="h2" color={Color.MONO_100} id={pickupA11yId} typography={Typography.NORMAL20} weight="bold">
