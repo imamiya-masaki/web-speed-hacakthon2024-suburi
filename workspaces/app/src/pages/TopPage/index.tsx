@@ -20,6 +20,12 @@ import { featureApiClient } from '../../features/feature/apiClient/featureApiCli
 import { rankingApiClient } from '../../features/ranking/apiClient/rankingApiClient';
 import { releaseApiClient } from '../../features/release/apiClient/releaseApiClient';
 
+function sleep(ms: number): Promise<void> {
+  return new Promise<void>((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
 const FeatureList = () => {
 
   const [featureList, setFeatureList] = useState<any[]>();
@@ -27,7 +33,9 @@ const FeatureList = () => {
   useEffect(() => {
     startTransition(() => {
       try {
-        setFeatureList((window as any).injectData[unstable_serialize(featureApiClient.fetchList$$key({query:{}}))])
+        const injectDataScript = document.getElementById('inject-data');
+        const injectData = JSON.parse(injectDataScript?.textContent || '{}') as any;
+        setFeatureList(injectData[unstable_serialize(featureApiClient.fetchList$$key({query:{}}))])
         } catch (error) {
           console.error({error})
         }
@@ -48,7 +56,9 @@ const RankingList = () => {
   useEffect(() => {
     startTransition(() => {
     try {
-      setRankingList((window as any).injectData[unstable_serialize(rankingApiClient.fetchList$$key({query:{}}))])
+      const injectDataScript = document.getElementById('inject-data');
+      const injectData = JSON.parse(injectDataScript?.textContent || '{}') as any;
+      setRankingList(injectData[unstable_serialize(rankingApiClient.fetchList$$key({query:{}}))])
     } catch (error) {
       console.error({error})
     }
@@ -70,8 +80,10 @@ const ReleaseList = () => {
   useEffect(() => {
     startTransition(() => {
     try {
+      const injectDataScript = document.getElementById('inject-data');
+      const injectData = JSON.parse(injectDataScript?.textContent || '{}') as any;
       const key = unstable_serialize(releaseApiClient.fetch$$key({params:{ dayOfWeek: todayStr }}));
-      setRelease((window as any).injectData[key])
+      setRelease(injectData[key])
     } catch (error) {
       console.error({error})
     }
