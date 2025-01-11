@@ -76,9 +76,7 @@ const TopPage: React.FC = () => {
                   </Text>
                   <Spacer height={Space * 2} />
                   <Box maxWidth="100%" overflowX="scroll" overflowY="hidden">
-                    <Suspense>
-                      <FeatureList/>
-                    </Suspense>
+                     <FeatureList/>
                   </Box>
                 </Box>
 
@@ -90,9 +88,7 @@ const TopPage: React.FC = () => {
                   </Text>
                   <Spacer height={Space * 2} />
                   <Box maxWidth="100%" overflowX="hidden" overflowY="hidden">
-                      <Suspense fallback={null}>
                         <RankingList />
-                      </Suspense>
                   </Box>
                 </Box>
 
@@ -103,9 +99,7 @@ const TopPage: React.FC = () => {
                     </Text>
                     <Spacer height={Space * 2} />
                     <Box maxWidth="100%" overflowX="scroll" overflowY="hidden">
-                    <Suspense fallback={null}>
                       <ReleaseList />
-                    </Suspense>
                     </Box>
                   </Box>
               </Box>
