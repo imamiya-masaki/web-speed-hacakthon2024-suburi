@@ -1,7 +1,6 @@
 import './index.css'
 
-// import moment from 'moment-timezone';
-import { useId, useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, Suspense, startTransition } from 'react';
 
 import { BookCard } from '../../features/book/components/BookCard';
 import { FeatureCard } from '../../features/feature/components/FeatureCard';
@@ -11,20 +10,30 @@ import { Flex } from '../../foundation/components/Flex';
 import { Spacer } from '../../foundation/components/Spacer';
 import { Text } from '../../foundation/components/Text';
 import { Color, Space, Typography } from '../../foundation/styles/variables';
-// import { getDayOfWeekStr } from '../../lib/date/getDayOfWeekStr';
 
 import { CoverSection } from './internal/CoverSection';
-import { useRelease } from '../../features/release/hooks/useRelease';
-import { useFeatureList } from '../../features/feature/hooks/useFeatureList';
-import { useRankingList } from '../../features/ranking/hooks/useRankingList';
 import { getDayOfWeekStr } from '../../lib/date/getDayOfWeekStr';
 import { Container } from '../../foundation/components/Container';
 import { Footer } from '../../foundation/components/Footer';
-import { Book } from '../../lib/type';
-
+import { unstable_serialize } from 'swr';
+import { featureApiClient } from '../../features/feature/apiClient/featureApiClient';
+import { rankingApiClient } from '../../features/ranking/apiClient/rankingApiClient';
+import { releaseApiClient } from '../../features/release/apiClient/releaseApiClient';
 
 const FeatureList = () => {
-  const { data: featureList } = useFeatureList({ query: {} });
+
+  const [featureList, setFeatureList] = useState<any[]>();
+
+  useEffect(() => {
+    startTransition(() => {
+      try {
+        setFeatureList((window as any).injectData[unstable_serialize(featureApiClient.fetchList$$key({query:{}}))])
+        } catch (error) {
+          console.error({error})
+        }
+    })
+  },[])
+
   return <Flex align="stretch" direction="row" gap={Space * 2} justify="flex-start" className='toppage-pickup'>
     {featureList?.map((feature: any) => (
         <FeatureCard key={feature.id} bookId={feature.book.id} insertBook={feature.book}/>
@@ -33,7 +42,19 @@ const FeatureList = () => {
 }
 
 const RankingList = () => {
-  const { data: rankingList } = useRankingList({ query: {} });
+
+  const [rankingList, setRankingList] = useState<any[]>();
+
+  useEffect(() => {
+    startTransition(() => {
+    try {
+      setRankingList((window as any).injectData[unstable_serialize(rankingApiClient.fetchList$$key({query:{}}))])
+    } catch (error) {
+      console.error({error})
+    }
+  });
+  },[])
+
   return <Flex align="center" as="ul" direction="column" justify="center" className={'toppage-ranking'}>
     {rankingList?.map((ranking: any) => (
          <RankingCard key={ranking.id} bookId={ranking.book.id} insertBook={ranking.book}/>
@@ -43,7 +64,21 @@ const RankingList = () => {
 
 const ReleaseList = () => {
   const todayStr = getDayOfWeekStr();
-  const { data: release } = useRelease({ params: { dayOfWeek: todayStr } });
+
+  const [release, setRelease] = useState<{books: any[]}>();
+
+  useEffect(() => {
+    startTransition(() => {
+    try {
+      const key = unstable_serialize(releaseApiClient.fetch$$key({params:{ dayOfWeek: todayStr }}));
+      console.log('key', key,(window as any).injectData, (window as any).injectData[key])
+      setRelease((window as any).injectData[key])
+    } catch (error) {
+      console.error({error})
+    }
+  });
+  },[])
+
   return (<Flex align="stretch" gap={Space * 2} justify="flex-start" className='toppage-release'>
   <Suspense fallback={null}>
     {release?.books.map((book: any) => (
@@ -56,11 +91,9 @@ const ReleaseList = () => {
 const TopPage: React.FC = () => {
   const todayStr = getDayOfWeekStr();
 
-  const { data: release } = useRelease({ params: { dayOfWeek: todayStr } });
-  const pickupA11yId = useId();
-  const rankingA11yId = useId();
-  const todayA11yId = useId();
-  console.log({release})
+  const pickupA11yId = "pickupA11yId";
+  const rankingA11yId = "rankingA11yId";
+  const todayA11yId = "todayA11yId";
   
   return (
     <Container>
