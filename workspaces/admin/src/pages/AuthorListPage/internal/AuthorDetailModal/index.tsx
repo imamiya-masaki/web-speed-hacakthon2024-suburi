@@ -27,8 +27,8 @@ export type Props = {
   authorId: string;
   isOpen: boolean;
   onClose: () => void;
-  allBookList: ReturnType<typeof useBookList>["data"];
-  author: ReturnType<typeof useAuthor>["data"];
+  allBookList?: ReturnType<typeof useBookList>["data"];
+  author?: ReturnType<typeof useAuthor>["data"];
 };
 
 export const AuthorDetailModal: React.FC<Props> = ({ authorId, isOpen, onClose }) => {

@@ -13,7 +13,7 @@ import { ComicViewer } from './internal/ComicViewer';
 import { unstable_serialize } from 'swr';
 import { bookApiClient } from '../../features/book/apiClient/bookApiClient';
 import { episodeApiClient } from '../../features/episode/apiClient/episodeApiClient';
-import { useEpisodeList } from '../../features/episode/hooks/useEpisodeList';
+import type { useEpisodeList } from '../../features/episode/hooks/useEpisodeList';
 
 useState
 
