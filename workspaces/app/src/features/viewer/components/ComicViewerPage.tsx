@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useAsync } from 'react-use';
 import './ComicViewerPage.module.css'
 
@@ -14,30 +14,58 @@ type Props = {
 export const ComicViewerPage = ({ pageImageId }: Props) => {
   const ref = useRef<HTMLCanvasElement>(null);
 
-  useAsync(async () => {
-    const image = new Image();
-    image.src = getImageUrl({
-      format: 'jxl',
-      imageId: pageImageId,
-    });
-    await image.decode();
+  useEffect(() => {
+    (async() => {
+      const image = new Image();
+      image.src = getImageUrl({
+        format: 'jpg',
+        imageId: pageImageId,
+      });
+      console.log('image', image.src, image)
+      await image.decode();
+  
+      const canvas = ref.current!;
+      canvas.width = image.naturalWidth;
+      canvas.height = image.naturalHeight;
+      const ctx = canvas.getContext('2d')!;
+  
+      decrypt({
+        exportCanvasContext: ctx,
+        sourceImage: image,
+        sourceImageInfo: {
+          height: image.naturalHeight,
+          width: image.naturalWidth,
+        },
+      });
+      console.log('image', image.src, image)
+      canvas.setAttribute('role', 'img');
+    })()
+  },[pageImageId])
 
-    const canvas = ref.current!;
-    canvas.width = image.naturalWidth;
-    canvas.height = image.naturalHeight;
-    const ctx = canvas.getContext('2d')!;
+  // useAsync(async () => {
+  //   const image = new Image();
+  //   image.src = getImageUrl({
+  //     format: 'jxl',
+  //     imageId: pageImageId,
+  //   });
+  //   await image.decode();
 
-    decrypt({
-      exportCanvasContext: ctx,
-      sourceImage: image,
-      sourceImageInfo: {
-        height: image.naturalHeight,
-        width: image.naturalWidth,
-      },
-    });
+  //   const canvas = ref.current!;
+  //   canvas.width = image.naturalWidth;
+  //   canvas.height = image.naturalHeight;
+  //   const ctx = canvas.getContext('2d')!;
 
-    canvas.setAttribute('role', 'img');
-  }, [pageImageId]);
+  //   decrypt({
+  //     exportCanvasContext: ctx,
+  //     sourceImage: image,
+  //     sourceImageInfo: {
+  //       height: image.naturalHeight,
+  //       width: image.naturalWidth,
+  //     },
+  //   });
+  //   console.log('image', image.src, image)
+  //   canvas.setAttribute('role', 'img');
+  // }, [pageImageId]);
 
   return <canvas className='ComicViewerPage___Canvas__styled' ref={ref} />;
 };

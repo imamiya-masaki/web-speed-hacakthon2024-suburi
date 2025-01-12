@@ -9,7 +9,7 @@ import { SearchResult } from './internal/SearchResult';
 
 const SearchPage: React.FC = () => {
 
-  const searchResultsA11yId = useId();
+  const searchResultsA11yId = "searchResultsA11yId";
 
   const [isClient, setIsClient] = useState(false);
   const [keyword, setKeyword] = useState('');

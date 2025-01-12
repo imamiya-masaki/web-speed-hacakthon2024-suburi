@@ -19,7 +19,9 @@ type Props = {
 
 export const BookListItem: React.FC<Props> = ({insertBook }) => {
   const book = insertBook;
-
+  if (book?.image?.id === undefined) {
+    return null
+  }
   const imageUrl = useImage({ height: 64, imageId: book.image.id, width: 64 });
 
   return (
