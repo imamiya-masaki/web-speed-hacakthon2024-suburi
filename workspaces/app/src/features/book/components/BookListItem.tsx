@@ -9,17 +9,16 @@ import { Spacer } from '../../../foundation/components/Spacer';
 import { Text } from '../../../foundation/components/Text';
 import { useImage } from '../../../foundation/hooks/useImage';
 import { Color, Space, Typography } from '../../../foundation/styles/variables';
-import { useBook } from '../hooks/useBook';
 
 
-import {Book} from '../../../lib/type'
+import {BookType} from '../../../lib/type'
 type Props = {
   bookId: string;
-  insertBook?: Book;
+  insertBook: Omit<BookType, "nameRuby" | "author">;
 };
 
-export const BookListItem: React.FC<Props> = ({ bookId, insertBook }) => {
-  const book = insertBook ??  useBook({ params: { bookId } }).data;
+export const BookListItem: React.FC<Props> = ({insertBook }) => {
+  const book = insertBook;
 
   const imageUrl = useImage({ height: 64, imageId: book.image.id, width: 64 });
 

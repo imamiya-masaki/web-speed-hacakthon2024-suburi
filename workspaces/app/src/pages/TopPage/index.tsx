@@ -27,7 +27,6 @@ function sleep(ms: number): Promise<void> {
 }
 
 const FeatureList = () => {
-
   const [featureList, setFeatureList] = useState<any[]>();
 
   useEffect(() => {

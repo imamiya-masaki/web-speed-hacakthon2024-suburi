@@ -70,14 +70,14 @@ function getScrollToLeft({
 
 type Props = {
   episodeId: string;
+  episode: ReturnType<(typeof useEpisode)>["data"]
 };
 
-const ComicViewerCore: React.FC<Props> = ({ episodeId }) => {
+const ComicViewerCore: React.FC<Props> = ({ episodeId, episode }) => {
   // 画面のリサイズに合わせて再描画する
   const rerender = useUpdate();
   useInterval(rerender, 0);
 
-  const { data: episode } = useEpisode({ params: { episodeId } });
 
   const [container, containerRef] = useState<HTMLDivElement | null>(null);
   const [scrollView, scrollViewRef] = useState<HTMLDivElement | null>(null);
@@ -192,10 +192,10 @@ const ComicViewerCore: React.FC<Props> = ({ episodeId }) => {
   );
 };
 
-const ComicViewerCoreWithSuspense: React.FC<Props> = ({ episodeId }) => {
+const ComicViewerCoreWithSuspense: React.FC<Props> = ({ episodeId, episode }) => {
   return (
     <Suspense fallback={null}>
-      <ComicViewerCore episodeId={episodeId} />
+      <ComicViewerCore episodeId={episodeId} episode={episode} />
     </Suspense>
   );
 };

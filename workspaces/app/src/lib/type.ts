@@ -1,3 +1,3 @@
-import { useBook } from "../features/book/hooks/useBook";
+import type { useBook } from "../features/book/hooks/useBook";
 
-export type Book = ReturnType<typeof useBook>["data"];
+export type BookType = ReturnType<typeof useBook>["data"];

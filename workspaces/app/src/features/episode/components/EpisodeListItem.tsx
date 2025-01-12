@@ -14,10 +14,14 @@ import { useEpisode } from '../hooks/useEpisode';
 type Props = {
   bookId: string;
   episodeId: string;
+  episode: ReturnType<typeof useEpisode>["data"]
 };
 
-export const EpisodeListItem: React.FC<Props> = ({ bookId, episodeId }) => {
-  const { data: episode } = useEpisode({ params: { episodeId } });
+export const EpisodeListItem: React.FC<Props> = ({ bookId, episode }) => {
+
+  if (episode?.image?.id === undefined) {
+    return null
+  }
 
   const imageUrl = useImage({ height: 96, imageId: episode.image.id, width: 96 });
 

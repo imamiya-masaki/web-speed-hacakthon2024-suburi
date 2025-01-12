@@ -15,6 +15,7 @@ type EpisodeApiClient = DomainSpecificApiClientInterface<{
 
 export const episodeApiClient: EpisodeApiClient = {
   fetch: async ({ params }) => {
+    console.log({params})
     const response = await apiClient.get<GetEpisodeResponse>(inject('/api/v1/episodes/:episodeId', params));
     return response.data;
   },

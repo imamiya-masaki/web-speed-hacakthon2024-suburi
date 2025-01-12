@@ -6,17 +6,16 @@ import { Link } from '../../../foundation/components/Link';
 import { Text } from '../../../foundation/components/Text';
 import { useImage } from '../../../foundation/hooks/useImage';
 import { Color, Space, Typography } from '../../../foundation/styles/variables';
-import { useBook } from '../hooks/useBook';
 import "./BookCard.module.css";
-import {Book} from '../../../lib/type'
+import {BookType} from '../../../lib/type'
 
 
 type Props = {
   bookId: string;
-  insertBook?: Omit<Book,"nameRuby" | "episodes">;
+  insertBook: Omit<BookType,"nameRuby" | "episodes">;
 };
 const BookCard: React.FC<Props> = ({ bookId, insertBook }) => {
-  const book = insertBook ??  useBook({ params: { bookId } }).data;
+  const book = insertBook
 
   const imageUrl = useImage({ height: 128, imageId: book.image.id, width: 192 });
   const authorImageUrl = useImage({ height: 32, imageId: book.author.image.id, width: 32 });

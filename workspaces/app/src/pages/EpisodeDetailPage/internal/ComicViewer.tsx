@@ -3,6 +3,7 @@ import { useInterval, useUpdate } from 'react-use';
 
 import { ComicViewerCore } from '../../../features/viewer/components/ComicViewerCore';
 import { addUnitIfNeeded } from '../../../lib/css/addUnitIfNeeded';
+import type { useEpisode } from '../../../features/episode/hooks/useEpisode';
 
 const IMAGE_WIDTH = 1075;
 const IMAGE_HEIGHT = 1518;
@@ -15,9 +16,10 @@ const MIN_PAGE_WIDTH = Math.floor((MIN_VIEWER_HEIGHT / IMAGE_HEIGHT) * IMAGE_WID
 
 type Props = {
   episodeId: string;
+  episode: ReturnType<(typeof useEpisode)>["data"]  
 };
 
-export const ComicViewer: React.FC<Props> = ({ episodeId }) => {
+export const ComicViewer: React.FC<Props> = ({ episodeId, episode }) => {
   // 画面のリサイズに合わせて再描画する
   const rerender = useUpdate();
   useInterval(rerender, 0);
@@ -39,7 +41,7 @@ export const ComicViewer: React.FC<Props> = ({ episodeId }) => {
   return (
     <div  style={{position: "relative"}} ref={ref}>
       <div style={{display: "grid", gridTemplateColumns: "100%", gridTemplateRows: "100%", maxHeight:addUnitIfNeeded(viewerHeight) }} >
-        <ComicViewerCore episodeId={episodeId} />
+        <ComicViewerCore episodeId={episodeId} episode={episode}/>
       </div>
     </div>
   );

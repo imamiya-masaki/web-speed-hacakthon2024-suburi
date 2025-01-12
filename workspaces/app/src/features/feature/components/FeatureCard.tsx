@@ -7,17 +7,16 @@ import { Link } from '../../../foundation/components/Link';
 import { Text } from '../../../foundation/components/Text';
 import { useImage } from '../../../foundation/hooks/useImage';
 import { Color, Space, Typography } from '../../../foundation/styles/variables';
-import { useBook } from '../../book/hooks/useBook';
 
-import {Book} from '../../../lib/type'
+import {BookType} from '../../../lib/type'
 
 type Props = {
   bookId: string;
-  insertBook?: Omit<Book,"nameRuby" | "episodes">;
+  insertBook: Omit<BookType,"nameRuby" | "episodes">;
 };
 
 const FeatureCard: React.FC<Props> = ({ bookId, insertBook }) => {
-  const book = insertBook ??  useBook({ params: { bookId } }).data;
+  const book = insertBook;
 
   const imageUrl = useImage({ height: 96, imageId: book.image.id, width: 96 });
   const authorImageUrl = useImage({ height: 32, imageId: book.author.image.id, width: 32 });
