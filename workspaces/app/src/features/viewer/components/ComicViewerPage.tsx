@@ -21,7 +21,7 @@ export const ComicViewerPage = ({ pageImageId }: Props) => {
         format: 'jpg',
         imageId: pageImageId,
       });
-      console.log('image', image.src, image)
+      // console.log('image', image.src, image)
       await image.decode();
   
       const canvas = ref.current!;
@@ -37,7 +37,7 @@ export const ComicViewerPage = ({ pageImageId }: Props) => {
           width: image.naturalWidth,
         },
       });
-      console.log('image', image.src, image)
+      // console.log('image', image.src, image)
       canvas.setAttribute('role', 'img');
     })()
   },[pageImageId])

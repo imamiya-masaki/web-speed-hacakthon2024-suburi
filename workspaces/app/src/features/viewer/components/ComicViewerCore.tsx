@@ -29,7 +29,7 @@ function getScrollToLeft({
 
   // 画面に表示されているページの中心と、スクロールビューの中心との差分を計算する
   // 世界は我々の想像する以上に変化するため、2 ** 12 回繰り返し観測する
-  for (let times = 0; times < 2 ** 12; times++) {
+  for (let times = 0; times < 2 ** 3; times++) {
     for (const [idx, child] of children.entries()) {
       const nthChild = idx + 1;
       const elementClientRect = child.getBoundingClientRect();
@@ -76,7 +76,12 @@ type Props = {
 const ComicViewerCore: React.FC<Props> = ({ episodeId, episode }) => {
   // 画面のリサイズに合わせて再描画する
   const rerender = useUpdate();
-  useInterval(rerender, 0);
+
+  window.addEventListener('resize', () => {
+    rerender()
+  }, {
+    passive: true
+  })
 
 
   const [container, containerRef] = useState<HTMLDivElement | null>(null);
@@ -98,6 +103,7 @@ const ComicViewerCore: React.FC<Props> = ({ episodeId, episode }) => {
     (pageCountParView === 2 ? pageWidth : 0);
 
   useEffect(() => {
+    console.log('check', {cqw, cqh, pageCountParView, pageWidth, viewerPaddingInline})
     const abortController = new AbortController();
 
     let isPressed = false;
@@ -166,11 +172,11 @@ const ComicViewerCore: React.FC<Props> = ({ episodeId, episode }) => {
       prevContentRect = entries[0]?.contentRect ?? null;
     };
 
-    scrollView?.addEventListener('pointerdown', handlePointerDown, { passive: false, signal: abortController.signal });
-    scrollView?.addEventListener('pointermove', handlePointerMove, { passive: false, signal: abortController.signal });
-    scrollView?.addEventListener('pointerup', handlePointerUp, { passive: false, signal: abortController.signal });
-    scrollView?.addEventListener('scroll', handleScroll, { passive: false, signal: abortController.signal });
-    scrollView?.addEventListener('scrollend', handleScrollEnd, { passive: false, signal: abortController.signal });
+    scrollView?.addEventListener('pointerdown', handlePointerDown, { passive: true, signal: abortController.signal });
+    scrollView?.addEventListener('pointermove', handlePointerMove, { passive: true, signal: abortController.signal });
+    scrollView?.addEventListener('pointerup', handlePointerUp, { passive: true, signal: abortController.signal });
+    scrollView?.addEventListener('scroll', handleScroll, { passive: true, signal: abortController.signal });
+    scrollView?.addEventListener('scrollend', handleScrollEnd, { passive: true, signal: abortController.signal });
 
     const resizeObserver = new ResizeObserver(handleResize);
     scrollView && resizeObserver.observe(scrollView);
@@ -185,7 +191,7 @@ const ComicViewerCore: React.FC<Props> = ({ episodeId, episode }) => {
     <div className='ComicViewerCore___Container__styled' ref={containerRef}>
       <div ref={scrollViewRef} className='ComicViewerCore___Wrapper__styled' style={{paddingInline: addUnitIfNeeded(viewerPaddingInline), gridAutoColumns: addUnitIfNeeded(pageWidth)}} >
         {episode.pages.map((page) => {
-          return <ComicViewerPage key={page.id} pageImageId={page.image.id} />;
+          return <Suspense fallback={null}><ComicViewerPage key={page.id} pageImageId={page.image.id} /></Suspense>;
         })}
       </div>
     </div>

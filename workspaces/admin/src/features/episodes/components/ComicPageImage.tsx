@@ -10,6 +10,9 @@ type Props = {
   pageImageId: string;
 };
 
+const IMAGE_WIDTH = 1075;
+const IMAGE_HEIGHT = 1518;
+
 export const ComicPageImage: React.FC<Props> = ({ pageImageId }) => {
   const { data: blob } = useQuery({
     queryFn: async ({ queryKey: [, { pageImageId }] }) => {
@@ -17,6 +20,8 @@ export const ComicPageImage: React.FC<Props> = ({ pageImageId }) => {
       image.src = getImageUrl({
         format: 'jxl',
         imageId: pageImageId,
+        width: IMAGE_WIDTH,
+        height: IMAGE_HEIGHT
       });
       await image.decode();
 
