@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useEffect, useMemo, useState, memo } from 'react';
 import { useInterval, useUpdate } from 'react-use';
 import './ComicViewerCore.module.css';
 
@@ -73,37 +73,18 @@ type Props = {
   episode: ReturnType<(typeof useEpisode)>["data"]
 };
 
+
 const ComicViewerCore: React.FC<Props> = ({ episodeId, episode }) => {
   // 画面のリサイズに合わせて再描画する
-  const rerender = useUpdate();
-
-  window.addEventListener('resize', () => {
-    rerender()
-  }, {
-    passive: true
-  })
-
+  
+  const renderingPages = useMemo(() => episode.pages, []);
 
   const [container, containerRef] = useState<HTMLDivElement | null>(null);
   const [scrollView, scrollViewRef] = useState<HTMLDivElement | null>(null);
 
-  // コンテナの幅
-  const cqw = (container?.getBoundingClientRect().width ?? 0) / 100;
-  // コンテナの高さ
-  const cqh = (container?.getBoundingClientRect().height ?? 0) / 100;
-
-  // 1画面に表示できるページ数（1 or 2）
-  const pageCountParView = (100 * cqw) / (100 * cqh) < (2 * IMAGE_WIDTH) / IMAGE_HEIGHT ? 1 : 2;
-  // ページの幅
-  const pageWidth = ((100 * cqh) / IMAGE_HEIGHT) * IMAGE_WIDTH;
   // 画面にページを表示したときに余る左右の余白
-  const viewerPaddingInline =
-    (100 * cqw - pageWidth * pageCountParView) / 2 +
-    // 2ページ表示のときは、奇数ページが左側にあるべきなので、ページの最初と最後に1ページの余白をいれる
-    (pageCountParView === 2 ? pageWidth : 0);
 
   useEffect(() => {
-    console.log('check', {cqw, cqh, pageCountParView, pageWidth, viewerPaddingInline})
     const abortController = new AbortController();
 
     let isPressed = false;
@@ -114,6 +95,17 @@ const ComicViewerCore: React.FC<Props> = ({ episodeId, episode }) => {
       isPressed = true;
       scrollView.style.cursor = 'grabbing';
       scrollView.setPointerCapture(ev.pointerId);
+
+        // コンテナの幅
+  const cqw = (container?.getBoundingClientRect().width ?? 0) / 100;
+  // コンテナの高さ
+  const cqh = (container?.getBoundingClientRect().height ?? 0) / 100;
+
+  // 1画面に表示できるページ数（1 or 2）
+  const pageCountParView = (100 * cqw)/ (100 * cqh) < ((2 * IMAGE_WIDTH) / IMAGE_HEIGHT) ? 1 : 2;
+  // ページの幅
+  const pageWidth = ((100 * cqh) / IMAGE_HEIGHT) * IMAGE_WIDTH;
+
       scrollToLeftWhenScrollEnd = getScrollToLeft({ pageCountParView, pageWidth, scrollView });
     };
 
@@ -124,6 +116,17 @@ const ComicViewerCore: React.FC<Props> = ({ episodeId, episode }) => {
           behavior: 'instant',
           left: -1 * ev.movementX,
         });
+
+          // コンテナの幅
+  const cqw = (container?.getBoundingClientRect().width ?? 0) / 100;
+  // コンテナの高さ
+  const cqh = (container?.getBoundingClientRect().height ?? 0) / 100;
+
+  // 1画面に表示できるページ数（1 or 2）
+  const pageCountParView = (100 * cqw)/ (100 * cqh) < ((2 * IMAGE_WIDTH) / IMAGE_HEIGHT) ? 1 : 2;
+  // ページの幅
+  const pageWidth = ((100 * cqh) / IMAGE_HEIGHT) * IMAGE_WIDTH;
+
         scrollToLeftWhenScrollEnd = getScrollToLeft({ pageCountParView, pageWidth, scrollView });
       }
     };
@@ -133,11 +136,33 @@ const ComicViewerCore: React.FC<Props> = ({ episodeId, episode }) => {
       isPressed = false;
       scrollView.style.cursor = 'grab';
       scrollView.releasePointerCapture(ev.pointerId);
+
+        // コンテナの幅
+  const cqw = (container?.getBoundingClientRect().width ?? 0) / 100;
+  // コンテナの高さ
+  const cqh = (container?.getBoundingClientRect().height ?? 0) / 100;
+
+  // 1画面に表示できるページ数（1 or 2）
+  const pageCountParView = (100 * cqw)/ (100 * cqh) < ((2 * IMAGE_WIDTH) / IMAGE_HEIGHT) ? 1 : 2;
+  // ページの幅
+  const pageWidth = ((100 * cqh) / IMAGE_HEIGHT) * IMAGE_WIDTH;
+
       scrollToLeftWhenScrollEnd = getScrollToLeft({ pageCountParView, pageWidth, scrollView });
     };
 
     const handleScroll = (ev: Pick<Event, 'currentTarget'>) => {
       const scrollView = ev.currentTarget as HTMLDivElement;
+
+        // コンテナの幅
+  const cqw = (container?.getBoundingClientRect().width ?? 0) / 100;
+  // コンテナの高さ
+  const cqh = (container?.getBoundingClientRect().height ?? 0) / 100;
+
+  // 1画面に表示できるページ数（1 or 2）
+  const pageCountParView = (100 * cqw)/ (100 * cqh) < ((2 * IMAGE_WIDTH) / IMAGE_HEIGHT) ? 1 : 2;
+  // ページの幅
+  const pageWidth = ((100 * cqh) / IMAGE_HEIGHT) * IMAGE_WIDTH;
+
       scrollToLeftWhenScrollEnd = getScrollToLeft({ pageCountParView, pageWidth, scrollView });
     };
 
@@ -163,6 +188,18 @@ const ComicViewerCore: React.FC<Props> = ({ episodeId, episode }) => {
     const handleResize = (entries: ResizeObserverEntry[]) => {
       if (prevContentRect != null && prevContentRect.width !== entries[0]?.contentRect.width) {
         requestAnimationFrame(() => {
+
+
+            // コンテナの幅
+  const cqw = (container?.getBoundingClientRect().width ?? 0) / 100;
+  // コンテナの高さ
+  const cqh = (container?.getBoundingClientRect().height ?? 0) / 100;
+
+  // 1画面に表示できるページ数（1 or 2）
+  const pageCountParView = (100 * cqw)/ (100 * cqh) < ((2 * IMAGE_WIDTH) / IMAGE_HEIGHT) ? 1 : 2;
+  // ページの幅
+  const pageWidth = ((100 * cqh) / IMAGE_HEIGHT) * IMAGE_WIDTH;
+
           scrollView?.scrollBy({
             behavior: 'instant',
             left: getScrollToLeft({ pageCountParView, pageWidth, scrollView }),
@@ -177,7 +214,6 @@ const ComicViewerCore: React.FC<Props> = ({ episodeId, episode }) => {
     scrollView?.addEventListener('pointerup', handlePointerUp, { passive: true, signal: abortController.signal });
     scrollView?.addEventListener('scroll', handleScroll, { passive: true, signal: abortController.signal });
     scrollView?.addEventListener('scrollend', handleScrollEnd, { passive: true, signal: abortController.signal });
-
     const resizeObserver = new ResizeObserver(handleResize);
     scrollView && resizeObserver.observe(scrollView);
     abortController.signal.addEventListener('abort', () => resizeObserver.disconnect(), { once: true });
@@ -185,14 +221,15 @@ const ComicViewerCore: React.FC<Props> = ({ episodeId, episode }) => {
     return () => {
       abortController.abort();
     };
-  }, [pageCountParView, pageWidth, scrollView]);
+  }, [scrollView]);
+
 
   return (
     <div className='ComicViewerCore___Container__styled' ref={containerRef}>
-      <div ref={scrollViewRef} className='ComicViewerCore___Wrapper__styled' style={{paddingInline: addUnitIfNeeded(viewerPaddingInline), gridAutoColumns: addUnitIfNeeded(pageWidth)}} >
-        {episode.pages.map((page) => {
-          return <Suspense fallback={null}><ComicViewerPage key={page.id} pageImageId={page.image.id} /></Suspense>;
-        })}
+      <div ref={scrollViewRef} className='ComicViewerCore___Wrapper__styled'  >
+        {renderingPages.map((page) => {
+      return page ? <Suspense fallback={null}><ComicViewerPage key={page.id} pageImageId={page.image.id} /></Suspense>:null;
+    }) }
       </div>
     </div>
   );
