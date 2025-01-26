@@ -15,7 +15,7 @@ export const Footer: React.FC = () => {
   return (
     <Box as="footer" backgroundColor={Color.Background} p={Space * 1}>
       <Flex align="flex-start" direction="column" gap={Space * 1} justify="flex-start">
-        <img alt="Cyber TOON" src="/assets/cyber-toon.svg" />
+        <img alt="Cyber TOON" src="/assets/cyber-toon.svg" height={45}/>
         <Suspense fallback={<Flex align="start" direction="row" gap={Space * 1.5} justify="center">
           <Button className='Footer___Button__styled' disabled>
             利用規約

@@ -11,11 +11,8 @@ import { Space } from '../../foundation/styles/variables';
 
 import { ComicViewer } from './internal/ComicViewer';
 import { unstable_serialize } from 'swr';
-import { bookApiClient } from '../../features/book/apiClient/bookApiClient';
 import { episodeApiClient } from '../../features/episode/apiClient/episodeApiClient';
 import type { useEpisodeList } from '../../features/episode/hooks/useEpisodeList';
-
-useState
 
 const BookComponent = ({bookId}: {bookId: string}) => {
   const [episodeList, setEpisodeList] = useState<ReturnType<typeof useEpisodeList>["data"]>([]);
@@ -80,9 +77,7 @@ const EpisodeDetailPage: React.FC = () => {
 
 const EpisodeDetailPageWithSuspense: React.FC = () => {
   return (
-    <Suspense fallback={null}>
       <EpisodeDetailPage />
-    </Suspense>
   );
 };
 
