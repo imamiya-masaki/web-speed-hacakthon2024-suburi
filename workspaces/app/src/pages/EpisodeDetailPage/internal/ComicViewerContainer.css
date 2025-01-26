@@ -2,12 +2,12 @@
 
   @container (width <= 708px) {
     --candidate-page-height: calc((100cqw / 1075)* 1518);;
-    max-height: clamp(500px, var(--candidate-page-height), 650px);
+    height: clamp(500px, var(--candidate-page-height), 650px);
   }
 
   @container (width > 708px) {
     --candidate-page-height: calc((50cqw / 1075)* 1518);;
-    max-height: clamp(500px, var(--candidate-page-height), 650px);
+    height: clamp(500px, var(--candidate-page-height), 650px);
   }
 
 }
